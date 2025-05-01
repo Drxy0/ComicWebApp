@@ -1,8 +1,9 @@
-﻿using ComicWebApp.Shared.Enums;
+﻿using ComicWebApp.DAL.Models.Abstractions;
+using ComicWebApp.Shared.Enums;
 
-namespace ComicWebApp.DAL.Models.ComicSeries;
+namespace ComicWebApp.DAL.Models.ComicSeriesModels;
 
-public class ComicSeriesMetadata
+public class ComicSeriesMetadata : Entity
 {
     // searching by author(s)' name is out of scope, so save as string
     // for manga/general
@@ -20,5 +21,6 @@ public class ComicSeriesMetadata
     public PublicationStatus PublicationStatus { get; set; }
     public List<Genre> Genres { get; set; } = new();
     public List<Theme> Themes { get; set; } = new();
+    public ComicSeries ComicSeries { get; set; } // FK
 
 }
