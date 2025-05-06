@@ -12,7 +12,6 @@ namespace ComicWebApp.DAL.Models.User
         public List<User> Friends { get; set; } = new();
         public List<ComicListEntry> ComicsList { get; set; } = new();
         public List<ComicSeries> Favourites { get; set; } = new();
-
         public bool IsAdmin { get; set; }
     }
 }

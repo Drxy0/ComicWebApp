@@ -18,12 +18,10 @@ public sealed class TokenProvider(IConfiguration configuration)
 
         var credentials = new SigningCredentials(securitKey, SecurityAlgorithms.HmacSha256);
 
-        // QUESTION: Is there a difference between a good and a bad descriptor, what's its purpose??
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(
             [
-                // How do i choose which ones should go here??
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Name, user.Username)
@@ -41,15 +39,8 @@ public sealed class TokenProvider(IConfiguration configuration)
         return token;
     }
 
-
-    // QUESTIONS: Jel ovo ovako kako sam napisao dolje?
-    // Access tokens are used to access the API, they should expire quickly, ~1h
-    // Refresh tokens are used to get new Access tokens, they should expire after 7-30 days, stored in cookies
-    // Best practice - create a new refresh token every time you create a new access token
-    // i.e. use refresh token once
     public string GenerateRefreshToken()
     {
         return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
     }
-
 }

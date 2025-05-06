@@ -8,5 +8,4 @@ public class ComicSeries : Entity
     public ComicSeriesAppStats Stats { get; set; } = new();
     public List<ComicChapter> Chapters { get; set; } = new();
     public bool IsVerified { get; set; }
-
 }

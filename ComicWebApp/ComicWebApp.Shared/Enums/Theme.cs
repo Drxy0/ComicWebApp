@@ -7,7 +7,6 @@ public enum Theme
     Cooking,
     Demons,
     Ghosts,
-    Harem,
     Mafia,
     MartialArts,
     Military,

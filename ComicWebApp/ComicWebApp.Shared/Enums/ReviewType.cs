@@ -1,9 +1,8 @@
-﻿namespace ComicWebApp.Shared.Enums
+﻿namespace ComicWebApp.Shared.Enums;
+
+public enum ReviewType
 {
-    public enum ReviewType
-    {
-        Positive = 0,
-        Neutral = 1,
-        Negative = 2
-    }
+    Positive = 0,
+    Neutral = 1,
+    Negative = 2
 }

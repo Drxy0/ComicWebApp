@@ -15,15 +15,7 @@ public class AuthService(AppDbContext context, TokenProvider tokenProvider) : IA
     {
         User? user = await context.Users.SingleOrDefaultAsync(u => u.Email == login.Email);
         if (user is null)
-            throw new Exception("User not found"); // QUESTION: Kapiram da ne treba da se baca exception, nego nesto smislenije?
-        // U sotexu smo return-ovali sljedece
-
-    //public ResponsePackage(T data, ResponseStatus status = ResponseStatus.OK, string message = "")
-    //{
-    //    Data = data;
-    //    Status = status;
-    //    Message = message;
-    //}
+            throw new Exception("User not found");
 
     var verificationResult = new PasswordHasher().VerifyHashedPassword(user.PasswordHash, login.Password);
 

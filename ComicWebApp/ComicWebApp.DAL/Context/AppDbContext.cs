@@ -1,4 +1,5 @@
-﻿using ComicWebApp.DAL.Models.ComicSeriesModels;
+﻿using ComicWebApp.DAL.Mappings;
+using ComicWebApp.DAL.Models.ComicSeriesModels;
 using ComicWebApp.DAL.Models.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,35 +21,11 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
-
-        // make comicSeries and its metadata share PK
-        modelBuilder.Entity<ComicSeries>()
-            .HasOne(s => s.Metadata)
-            .WithOne(m => m.ComicSeries)
-            .HasForeignKey<ComicSeriesMetadata>(m => m.Id);
-
-        modelBuilder.Entity<ComicSeries>()
-            .HasOne(s => s.Stats)
-            .WithOne(a => a.ComicSeries)
-            .HasForeignKey<ComicSeriesAppStats>(a => a.Id);
-
-        modelBuilder.Entity<ComicSeries>()
-            .HasMany(s => s.Chapters)
-            .WithOne(c => c.Series)
-            .HasForeignKey(c => c.SeriesId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        modelBuilder.Entity<ComicChapter>()
-            .HasMany(c => c.Pages)
-            .WithOne(p => p.Chapter)
-            .HasForeignKey(p => p.ChapterId)
-            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.ApplyConfiguration(new ComicChapterMapping());
+        modelBuilder.ApplyConfiguration(new ComicSeriesMapping());
+        modelBuilder.ApplyConfiguration(new RefreshTokenMapping());
 
         modelBuilder.Entity<ComicPage>()
             .HasIndex(p => p.ChapterId);
-
-        modelBuilder.Entity<ComicChapter>()
-            .HasIndex(c => c.SeriesId);
     }
 }
