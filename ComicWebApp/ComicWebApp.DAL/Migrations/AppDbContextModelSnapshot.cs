@@ -166,7 +166,6 @@ namespace ComicWebApp.DAL.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Note")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<float>("Rating")
@@ -219,7 +218,7 @@ namespace ComicWebApp.DAL.Migrations
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -238,6 +237,29 @@ namespace ComicWebApp.DAL.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ComicWebApp.DAL.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ExpiresOnUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("ComicWebApp.DAL.Models.ComicSeriesModels.ComicChapter", b =>
@@ -323,6 +345,17 @@ namespace ComicWebApp.DAL.Migrations
                     b.HasOne("ComicWebApp.DAL.Models.User.User", null)
                         .WithMany("Friends")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ComicWebApp.DAL.RefreshToken", b =>
+                {
+                    b.HasOne("ComicWebApp.DAL.Models.User.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ComicWebApp.DAL.Models.ComicSeriesModels.ComicChapter", b =>

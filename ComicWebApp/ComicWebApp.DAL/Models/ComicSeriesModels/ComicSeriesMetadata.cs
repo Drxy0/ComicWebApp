@@ -21,6 +21,6 @@ public class ComicSeriesMetadata : Entity
     public PublicationStatus PublicationStatus { get; set; }
     public List<Genre> Genres { get; set; } = new();
     public List<Theme> Themes { get; set; } = new();
-    public ComicSeries ComicSeries { get; set; } // FK
+    public ComicSeries? ComicSeries { get; set; } // FK
 
 }

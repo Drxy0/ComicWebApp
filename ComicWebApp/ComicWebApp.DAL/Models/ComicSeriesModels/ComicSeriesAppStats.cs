@@ -10,5 +10,5 @@ public class ComicSeriesAppStats : Entity
     public float CompletionRate { get; set; }  // Percentage of readers who finished the comic
     public float DropRate { get; set; }  // Percentage of readers who dropped it
 
-    public ComicSeries ComicSeries { get; set; } // FK
+    public ComicSeries? ComicSeries { get; set; } // FK
 }

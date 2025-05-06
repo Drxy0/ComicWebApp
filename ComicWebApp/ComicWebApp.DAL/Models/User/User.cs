@@ -5,9 +5,9 @@ namespace ComicWebApp.DAL.Models.User
 {
     public class User : Entity
     {
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public required string Username { get; set; }
+        public required string Email { get; set; }
+        public required string PasswordHash { get; set; }
         public string? ProfilePictureUrl { get; set; }
         public List<User> Friends { get; set; } = new();
         public List<ComicListEntry> ComicsList { get; set; } = new();

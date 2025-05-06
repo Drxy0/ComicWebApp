@@ -9,5 +9,5 @@ public class ComicChapter : Entity
     public List<ComicPage> Pages { get; set; } = new();
 
     public Guid SeriesId { get; set; }
-    public ComicSeries Series { get; set; }
+    public ComicSeries? Series { get; set; }
 }
