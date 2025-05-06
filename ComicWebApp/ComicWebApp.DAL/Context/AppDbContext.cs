@@ -24,8 +24,5 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new ComicChapterMapping());
         modelBuilder.ApplyConfiguration(new ComicSeriesMapping());
         modelBuilder.ApplyConfiguration(new RefreshTokenMapping());
-
-        modelBuilder.Entity<ComicPage>()
-            .HasIndex(p => p.ChapterId);
     }
 }
