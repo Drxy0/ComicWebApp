@@ -18,5 +18,8 @@
             <input id="confirm-password" type="password" formControlName="confirmPassword"/>
         </div>
     </div>
-    <button>Register</button>
+    <button [disabled]="form.invalid">Register</button>
+    @if (form.invalid && form.dirty) {
+        <p>Form is invalid! Passwords must</p>
+    }
 </form>
