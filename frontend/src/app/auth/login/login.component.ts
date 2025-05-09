@@ -1,5 +1,7 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { LoginUserDto } from '../../models/dtos/login-user.dto';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +11,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class LoginComponent {
   private destroyRef = inject(DestroyRef);
+  private authService = inject(AuthService);
+  emailLabel = "Email";
+  passwordLabel = "Password";
+  loginBtnText = "Log in";
   
   form = new FormGroup({
     email: new FormControl('', {
@@ -22,6 +28,12 @@ export class LoginComponent {
   })
 
   onLogin() {
-    // call http service login
+    const formValues = this.form.getRawValue();
+    const payload:LoginUserDto = { email: formValues.email ?? '', password: formValues.password ?? ''}
+    this.authService.login(payload).subscribe(
+      response => {
+        console.log('response', response.body);
+      }
+    )
   }
 }

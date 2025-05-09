@@ -7,6 +7,7 @@ namespace ComicWebApp.DAL.Models.User
     {
         public float Rating { get; set; }
         public string? Note { get; set; }
+        public bool IsFavorite { get; set; }
         public Guid ReviewId { get; set; }
         public Review? Review { get; set; } // NOTE: Nav props should be nullable
         public Guid ComicSeriesId { get; set; }
