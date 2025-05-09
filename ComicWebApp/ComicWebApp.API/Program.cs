@@ -55,10 +55,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
-}
+app.UseHttpsRedirection();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

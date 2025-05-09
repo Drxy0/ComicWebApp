@@ -53,8 +53,6 @@ public class AuthService(AppDbContext context, TokenProvider tokenProvider) : IA
 
         string accessToken = tokenProvider.Create(refreshToken.User);
 
-        // QUESTION: Why do we edit the current db row and not create a new one or smth idk?
-        // Like making the old one "expired" by setting a bool flag, instead of just overwriting
         refreshToken.Token = tokenProvider.GenerateRefreshToken();
         refreshToken.ExpiresOnUtc = DateTime.UtcNow.AddDays(7);
 
@@ -63,8 +61,6 @@ public class AuthService(AppDbContext context, TokenProvider tokenProvider) : IA
         return new TokenResponseDto(accessToken, refreshToken.Token);
     }
 
-    // QUESTION: Why return user and not (token, refreshToken) pair like in login?
-    // Nvm - userId is a parameter in /refresh-token endpoint request
     public async Task<User?> RegisterAsync(RegisterUserDto register)
     {
         if (await context.Users.AnyAsync(u => u.Email == register.Email) ||

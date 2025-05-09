@@ -20,7 +20,7 @@ export class AuthService {
         const isValid = this.isTokenValid(accessToken);
 
         if (isValid) {
-            return accessToken
+            return accessToken;
         }
 
         return null;
@@ -37,20 +37,14 @@ export class AuthService {
     }
 
     register(registerUser: RegisterUserDto): Observable<any> {
-        return this.http.post(`${this.apiPath}/auth/register`, registerUser, {
-            observe: 'response',
-        });
+        return this.http.post(`${this.apiPath}/auth/register`, registerUser);
     }
 
     login(loginUser: LoginUserDto): Observable<any> {
-        return this.http.post(`${this.apiPath}/auth/login`, loginUser, {
-            observe: 'response',
-        });
+        return this.http.post(`${this.apiPath}/auth/login`, loginUser);
     }
 
     refreshToken(refreshDto: RefreshTokenDto): Observable<any> {
-        return this.http.post(`${this.apiPath}/auth/refresh-token`, refreshDto, {
-            observe: 'response',
-        });
+        return this.http.post(`${this.apiPath}/auth/refresh-token`, refreshDto);
     }
 }

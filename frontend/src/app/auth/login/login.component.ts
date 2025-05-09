@@ -12,6 +12,9 @@ import { LoginUserDto } from '../../models/dtos/login-user.dto';
 export class LoginComponent {
   private destroyRef = inject(DestroyRef);
   private authService = inject(AuthService);
+  emailLabel = "Email";
+  passwordLabel = "Password";
+  loginBtnText = "Log in";
   
   form = new FormGroup({
     email: new FormControl('', {
@@ -25,7 +28,8 @@ export class LoginComponent {
   })
 
   onLogin() {
-    const payload: LoginUserDto = this.form.value as LoginUserDto;
+    const formValues = this.form.getRawValue();
+    const payload:LoginUserDto = { email: formValues.email ?? '', password: formValues.password ?? ''}
     this.authService.login(payload).subscribe(
       response => {
         console.log('response', response.body);

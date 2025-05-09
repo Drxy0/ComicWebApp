@@ -9,16 +9,24 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { RegisterUserDto } from '../../models/dtos/register-user.dto';
 import { Router } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { map, catchError } from 'rxjs';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatTooltipModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  tooltipEmailRequired = 'Email is required';
+  tooltipEmailNotValid = 'Email is not valid';
+  tooltipUsernameRequired = 'Username is required';
+  tooltipPasswordRequired = 'Password is required';
+  tooltipPasswordMinLength = 'Password must be at least 8 characters long';
+  tooltipPasswordDoNotMatch = 'Password do not match';
 
   form = new FormGroup({
     username: new FormControl('', { validators: Validators.required }),
@@ -35,14 +43,13 @@ export class RegisterComponent {
         }),
       },
       {
-        validators: [this.equalValues('password', 'confirmPassword')]
+        validators: [this.equalValues('password', 'confirmPassword')],
       }
     ),
   });
 
   onRegister() {
     const { username, email, passwords } = this.form.value;
-
     const registerDto: RegisterUserDto = {
       username: username!,
       email: email!,
@@ -52,29 +59,40 @@ export class RegisterComponent {
     this.authService.register(registerDto).subscribe({
       next: () => {
         // Auto-login after successful registration
-        const loginDto = { email: registerDto.email, password: registerDto.password };
-        this.authService.login(loginDto).subscribe({
-          next: (loginResponse) => {
-            console.log('Logged in successfully', loginResponse);
+        const loginDto = {
+          email: registerDto.email,
+          password: registerDto.password,
+        };
+        this.authService.login(loginDto)
+          .pipe(
+            map((response) => response.body),
+            catchError((error) => {
+              console.error('Auto-login failed', error);
+              return [];
+            })
+          )
+          .subscribe(
+            (response) => {
+              if (!response) return;
 
-            const accessToken = loginResponse.body?.accessToken;
-            const refreshToken = loginResponse.body?.refreshToken
-    
-            if (accessToken && refreshToken) {
-              localStorage.setItem('access_token', accessToken);
-              localStorage.setItem('refresh_token', refreshToken);
+              const accessToken = response.accessToken;
+              const refreshToken = response.refreshToken;
+
+              if (accessToken && refreshToken) {
+                localStorage.setItem('access_token', accessToken);
+                localStorage.setItem('refresh_token', refreshToken);
+              }
+
+              this.router.navigate(['/profile']);
+            },
+            (loginErr) => {
+              console.error('Auto-login failed', loginErr);
             }
-
-            this.router.navigate(['/profile']);
-          },
-          error: (loginErr) => {
-            console.error('Auto-login failed', loginErr);
-          }
-        });
+          );
       },
       error: (regErr) => {
         console.error('Registration failed', regErr);
-      }
+      },
     });
   }
 
@@ -86,7 +104,7 @@ export class RegisterComponent {
       if (val1 === val2) {
         return null;
       }
-      return { valuesNotEqual: true};
-    }
+      return { valuesNotEqual: true };
+    };
   }
 }

@@ -1,25 +1,76 @@
 <h2>Register</h2>
 <form [formGroup]="form" (ngSubmit)="onRegister()">
+  <div>
+    <label for="username">Username</label>
+    <input id="username" type="text" formControlName="username" />
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" />
+  </div>
+  <div formGroupName="passwords">
     <div>
-        <label for="username">Username</label>
-        <input id="username" type="text" formControlName="username"/>
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" />
     </div>
     <div>
-        <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email"/>
+      <label for="confirm-password">Confirm Password</label>
+      <input
+        id="confirm-password"
+        type="password"
+        formControlName="confirmPassword"
+      />
     </div>
-    <div formGroupName="passwords">
-        <div>
-            <label for="password">Password</label>
-            <input id="password" type="password" formControlName="password"/>
+  </div>
+
+    @if(!form.touched && !form.dirty) {
+        <div style="width: fit-content" [matTooltip]="tooltipUsernameRequired" [matTooltipPosition]="'right'">
+            <button [disabled]="form.invalid">Register</button>
         </div>
-        <div>
-            <label for="confirm-password">Confirm Password</label>
-            <input id="confirm-password" type="password" formControlName="confirmPassword"/>
-        </div>
-    </div>
-    <button [disabled]="form.invalid">Register</button>
-    @if (form.invalid && form.dirty) {
-        <p>Form is invalid! Passwords must</p>
     }
+
+    @if(form.invalid && (form.touched || form.dirty)) {
+        @if(form.controls.username.errors?.['required']) {
+            <div style="width: fit-content" [matTooltip]="tooltipUsernameRequired" [matTooltipPosition]="'right'">
+                <button [disabled]="form.invalid">Register</button>
+            </div>
+        }
+
+        @else if(form.controls.email.errors?.['required']) {
+            <div style="width: fit-content" [matTooltip]="tooltipEmailRequired" [matTooltipPosition]="'right'">
+                <button [disabled]="form.invalid">Register</button>
+            </div>
+        }
+
+        @else if(form.controls.email.errors?.['email']) {
+            <div style="width: fit-content" [matTooltip]="tooltipEmailNotValid" [matTooltipPosition]="'right'">
+                <button [disabled]="form.invalid">Register</button>
+            </div>
+        }
+        
+        @else if(form.controls.passwords.controls.password.errors?.['required']) {
+            <div style="width: fit-content" [matTooltip]="tooltipPasswordRequired" [matTooltipPosition]="'right'">
+                <button [disabled]="form.invalid">Register</button>
+            </div>
+        }
+        
+        @else if(form.controls.passwords.controls.password.errors?.['minlength']) {
+            <div style="width: fit-content" [matTooltip]="tooltipPasswordMinLength" [matTooltipPosition]="'right'">
+                <button [disabled]="form.invalid">Register</button>
+            </div>
+        }
+        
+        @else if(form.controls.passwords.controls.confirmPassword.errors?.['required']) {
+            <div style="width: fit-content" [matTooltip]="tooltipPasswordRequired" [matTooltipPosition]="'right'">
+                <button [disabled]="form.invalid">Register</button>
+            </div>
+        }
+        
+        @else if(form.controls.passwords.errors?.['valuesNotEqual']) {
+            <div style="width: fit-content" [matTooltip]="tooltipPasswordDoNotMatch" [matTooltipPosition]="'right'">
+                <button [disabled]="form.invalid">Register</button>
+            </div>
+        }
+    }
+
 </form>
