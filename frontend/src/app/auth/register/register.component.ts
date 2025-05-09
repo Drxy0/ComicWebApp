@@ -21,6 +21,10 @@ import { map, catchError } from 'rxjs';
 export class RegisterComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+  usernameLabel = "Username";
+  emailLabel = "Email";
+  passwordLabel = "Password";
+  confirmPasswordLabel = "Confirm Password";
   tooltipEmailRequired = 'Email is required';
   tooltipEmailNotValid = 'Email is not valid';
   tooltipUsernameRequired = 'Username is required';
@@ -63,8 +67,7 @@ export class RegisterComponent {
           email: registerDto.email,
           password: registerDto.password,
         };
-        this.authService.login(loginDto)
-          .pipe(
+        this.authService.login(loginDto).pipe(
             map((response) => response.body),
             catchError((error) => {
               console.error('Auto-login failed', error);
