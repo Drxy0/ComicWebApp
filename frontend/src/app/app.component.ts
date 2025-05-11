@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import translationsEN from '../../public/i18n/en.json';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +11,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'frontend';
+
+  constructor(private translate: TranslateService) {
+    this.translate.setTranslation('en', translationsEN);
+    this.translate.setDefaultLang('en');
+  }
 }

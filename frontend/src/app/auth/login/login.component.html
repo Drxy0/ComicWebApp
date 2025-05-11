@@ -1,15 +1,15 @@
 <form [formGroup]="form" (ngSubmit)="onLogin()">
-    <h2>Login</h2>
+  <h2>{{'AUTH.LOGIN' | translate}}</h2>
 
+  <div>
     <div>
-        <div>
-            <label>{{ emailLabel }}</label>
-            <input type="text" [formControl]="form.controls.email" />
-        </div>
-        <div>
-            <label>{{ passwordLabel }}</label>
-            <input type="password" [formControl]="form.controls.password" />
-        </div>
-        <button>{{ loginBtnText }}</button>
+      <label>{{ 'AUTH.EMAIL' | translate }}</label>
+      <input type="text" [formControl]="form.controls.email"/>
     </div>
+    <div>
+      <label>{{ 'AUTH.PASSWORD' | translate }}</label>
+      <input type="password" [formControl]="form.controls.password"/>
+    </div>
+    <button>{{ 'AUTH.LOG_IN' | translate }}</button>
+  </div>
 </form>

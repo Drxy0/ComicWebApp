@@ -1,0 +1,18 @@
+{
+  "AUTH": {
+    "LOGIN": "Login",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "LOG_IN": "Log in",
+    "REGISTER": "Register",
+    "USERNAME": "Username",
+    "CONFIRM_PASSWORD": "Confirm password",
+  
+    "REQUIRED": "Field is required",
+    "EMAIL_NOT_VALID_ERROR": "Email is not valid",
+    "PASSWORD_REQUIRED_ERROR": "Password is required",
+    "PASSWORD_NOT_VALID_ERROR": "Password is not valid",
+    "PASSWORD_MIN_LENGTH_ERROR": "Password must be at least 8 characters long",
+    "PASSWORD_DO_NOT_MATCH_ERROR": "Passwords do not match"
+  }
+}
