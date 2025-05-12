@@ -1,7 +1,6 @@
-using ComicWebApp.BLL.Services;
-using ComicWebApp.BLL.Services.Intefaces;
-using ComicWebApp.DAL;
-using ComicWebApp.DAL.Context;
+using ComicWebApp.API.Endpoints;
+using ComicWebApp.API.Features.Auth;
+using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity.Data;
@@ -11,13 +10,14 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 
-builder.Services.AddControllers();
+builder.Services.AddEndpoints();
 builder.Services.AddOpenApi();
 builder.Services.AddSingleton<TokenProvider>();
-builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddCors(options =>
 {
