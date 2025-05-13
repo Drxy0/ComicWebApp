@@ -1,9 +1,9 @@
-﻿using ComicWebApp.API.Models.User;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNet.Identity;
 using ComicWebApp.API.Endpoints;
+using ComicWebApp.API.Features.Users.UserModels;
 
 namespace ComicWebApp.API.Features.Auth;
 

@@ -1,4 +1,4 @@
-﻿namespace ComicWebApp.Shared.Enums;
+﻿namespace ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 
 public enum PublicationStatus
 {

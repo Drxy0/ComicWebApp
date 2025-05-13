@@ -1,7 +1,7 @@
-﻿using ComicWebApp.API.Models.Abstractions;
-using ComicWebApp.Shared.Enums;
+﻿using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
+using ComicWebApp.API.Models.Abstractions;
 
-namespace ComicWebApp.API.Models.User;
+namespace ComicWebApp.API.Features.Users.UserModels;
 
 public class Review : Entity
 {

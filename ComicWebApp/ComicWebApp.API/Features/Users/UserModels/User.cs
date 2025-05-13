@@ -1,6 +1,6 @@
 ﻿using ComicWebApp.API.Models.Abstractions;
 
-namespace ComicWebApp.API.Models.User
+namespace ComicWebApp.API.Features.Users.UserModels
 {
     public class User : Entity
     {

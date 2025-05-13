@@ -1,6 +1,6 @@
 ﻿using ComicWebApp.API.Models.Abstractions;
 
-namespace ComicWebApp.API.Models.ComicSeriesModels;
+namespace ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 
 public class ComicChapter : Entity
 {
@@ -9,5 +9,5 @@ public class ComicChapter : Entity
     public List<ComicPage> Pages { get; set; } = new();
 
     public Guid SeriesId { get; set; }
-    public ComicSeries? Series { get; set; }
+    public ComicSeriesModel? Series { get; set; }
 }

@@ -1,8 +1,8 @@
 ﻿using ComicWebApp.API.Models.Abstractions;
 
-namespace ComicWebApp.API.Models.ComicSeriesModels;
+namespace ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 
-public class ComicSeries : Entity
+public class ComicSeriesModel : Entity
 {
     public ComicSeriesMetadata Metadata { get; set; } = new();
     public ComicSeriesAppStats Stats { get; set; } = new();

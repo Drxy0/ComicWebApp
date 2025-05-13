@@ -1,12 +1,11 @@
 using ComicWebApp.API.Endpoints;
 using ComicWebApp.API.Features.Auth;
 using ComicWebApp.API.Infrastructure.Data;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +52,7 @@ app.UseCors("AllowAngularApp");
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();

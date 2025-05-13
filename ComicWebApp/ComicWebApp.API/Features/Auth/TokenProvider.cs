@@ -1,4 +1,4 @@
-﻿using ComicWebApp.API.Models.User;
+﻿using ComicWebApp.API.Features.Users.UserModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;

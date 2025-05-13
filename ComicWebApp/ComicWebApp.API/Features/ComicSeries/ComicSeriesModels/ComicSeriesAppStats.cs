@@ -1,6 +1,6 @@
 ﻿using ComicWebApp.API.Models.Abstractions;
 
-namespace ComicWebApp.API.Models.ComicSeriesModels;
+namespace ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 
 public class ComicSeriesAppStats : Entity
 {
@@ -9,6 +9,5 @@ public class ComicSeriesAppStats : Entity
     public int NumberOfReaders { get; set; }
     public float CompletionRate { get; set; }  // Percentage of readers who finished the comic
     public float DropRate { get; set; }  // Percentage of readers who dropped it
-
-    public ComicSeries? ComicSeries { get; set; } // FK
+    public ComicSeriesModel? ComicSeries { get; set; } // FK
 }

@@ -1,4 +1,4 @@
-﻿using ComicWebApp.API.Models.ComicSeriesModels;
+﻿using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

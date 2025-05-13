@@ -1,6 +1,6 @@
 ﻿using ComicWebApp.API.Models.Abstractions;
 
-namespace ComicWebApp.API.Models.ComicSeriesModels;
+namespace ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 
 public class ComicPage : Entity
 {

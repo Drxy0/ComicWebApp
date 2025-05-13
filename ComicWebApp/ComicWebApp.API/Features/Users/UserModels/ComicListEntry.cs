@@ -1,7 +1,7 @@
-﻿using ComicWebApp.API.Models.Abstractions;
-using ComicWebApp.API.Models.ComicSeriesModels;
+﻿using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
+using ComicWebApp.API.Models.Abstractions;
 
-namespace ComicWebApp.API.Models.User
+namespace ComicWebApp.API.Features.Users.UserModels
 {
     public class ComicListEntry : Entity
     {
@@ -11,7 +11,7 @@ namespace ComicWebApp.API.Models.User
         public Guid ReviewId { get; set; }
         public Review? Review { get; set; } // NOTE: Nav props should be nullable
         public Guid ComicSeriesId { get; set; }
-        public ComicSeries? ComicSeries { get; set; }
+        public ComicSeriesModel? ComicSeries { get; set; }
         public Guid UserId { get; set; }
         public User? User { get; set; }
     }
