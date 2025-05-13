@@ -1,4 +1,4 @@
-﻿using ComicWebApp.API.Models.Abstractions;
+﻿using ComicWebApp.API.Abstractions;
 
 namespace ComicWebApp.API.Features.Users.UserModels
 {

@@ -3,7 +3,7 @@ using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 using ComicWebApp.API.Infrastructure.Data;
 
-namespace ComicWebApp.API.Features.ComicSeries;
+namespace ComicWebApp.API.Features.ComicSeries.ComicSeries;
 
 public class UpdateComicSeriesMetadata
 {

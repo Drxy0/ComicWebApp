@@ -1,5 +1,5 @@
-﻿using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
-using ComicWebApp.API.Models.Abstractions;
+﻿using ComicWebApp.API.Abstractions;
+using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 
 namespace ComicWebApp.API.Features.Users.UserModels;
 

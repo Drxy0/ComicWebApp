@@ -1,5 +1,5 @@
-﻿using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
-using ComicWebApp.API.Models.Abstractions;
+﻿using ComicWebApp.API.Abstractions;
+using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 
 namespace ComicWebApp.API.Features.Users.UserModels
 {
