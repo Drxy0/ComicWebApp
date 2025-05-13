@@ -8,7 +8,6 @@ namespace ComicWebApp.API.Features.ComicSeries;
 public class UpdateComicSeriesMetadata
 {
     public record Request(
-        Guid Id,
         string? Author,
         string? Artist,
         int? YearOfRelease,
@@ -27,13 +26,13 @@ public class UpdateComicSeriesMetadata
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPut("metadata", Handler);
+            app.MapPut("comic-series/{id:guid}/metadata", Handler);
         }
     }
 
-    public static async Task<IResult> Handler(AppDbContext context, Request request)
+    public static async Task<IResult> Handler(AppDbContext context, Request request, Guid id)
     {
-        ComicSeriesMetadata? metadata = await context.ComicSeriesMetadata.FindAsync(request.Id);
+        ComicSeriesMetadata? metadata = await context.ComicSeriesMetadata.FindAsync(id);
         if (metadata is null)
         {
             return Results.NotFound();
