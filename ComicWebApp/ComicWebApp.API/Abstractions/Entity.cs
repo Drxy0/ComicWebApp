@@ -1,4 +1,4 @@
-﻿namespace ComicWebApp.API.Models.Abstractions;
+﻿namespace ComicWebApp.API.Abstractions;
 
 public abstract class Entity
 {

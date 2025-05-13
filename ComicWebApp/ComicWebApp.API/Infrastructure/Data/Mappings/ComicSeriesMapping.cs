@@ -1,12 +1,12 @@
-﻿using ComicWebApp.API.Models.ComicSeriesModels;
+﻿using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ComicWebApp.API.Infrastructure.Data.Mappings;
 
-internal class ComicSeriesMapping : IEntityTypeConfiguration<ComicSeries>
+internal class ComicSeriesMapping : IEntityTypeConfiguration<ComicSeriesModel>
 {
-    public void Configure(EntityTypeBuilder<ComicSeries> builder)
+    public void Configure(EntityTypeBuilder<ComicSeriesModel> builder)
     {
         // make comicSeries and its metadata share PK
         builder.HasOne(s => s.Metadata)

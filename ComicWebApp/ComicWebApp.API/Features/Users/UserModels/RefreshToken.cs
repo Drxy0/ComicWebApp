@@ -1,4 +1,4 @@
-﻿namespace ComicWebApp.API.Models.User
+﻿namespace ComicWebApp.API.Features.Users.UserModels
 {
     public class RefreshToken
     {

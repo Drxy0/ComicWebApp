@@ -1,7 +1,7 @@
-﻿using ComicWebApp.API.Models.ComicSeriesModels;
-using ComicWebApp.API.Models.User;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ComicWebApp.API.Infrastructure.Data.Mappings;
+using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
+using ComicWebApp.API.Features.Users.UserModels;
 
 namespace ComicWebApp.API.Infrastructure.Data;
 
@@ -15,7 +15,7 @@ public class AppDbContext : DbContext
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<ComicChapter> ComicChapters { get; set; }
     public DbSet<ComicPage> ComicPages { get; set; }
-    public DbSet<ComicSeries> ComicSeries { get; set; }
+    public DbSet<ComicSeriesModel> ComicSeries { get; set; }
     public DbSet<ComicSeriesAppStats> ComicSeriesAppStats { get; set; }
     public DbSet<ComicSeriesMetadata> ComicSeriesMetadata { get; set; }
 
