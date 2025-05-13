@@ -46,9 +46,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 var app = builder.Build();
-app.UseCors("AllowAngularApp");
 
-// Configure the HTTP request pipeline.
+app.UseCors("AllowAngularApp");
+app.MapEndpoints();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -59,7 +60,5 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();
