@@ -32,7 +32,7 @@ public static class CreateComicSeries
 
     public static async Task<IResult> Handler(Request request, AppDbContext context)
     {
-        var metadata = new ComicSeriesMetadata
+        ComicSeriesMetadata metadata = new ComicSeriesMetadata
         {
             Author = request.Author,
             Artist = request.Artist,
@@ -51,14 +51,20 @@ public static class CreateComicSeries
         ComicSeriesModel comicSeries = new ComicSeriesModel
         {
             Metadata = metadata,
+            Stats = new ComicSeriesAppStats(),
             IsVerified = false
         };
 
         await context.ComicSeries.AddAsync(comicSeries);
-        await context.ComicSeriesMetadata.AddAsync(metadata);
-        await context.ComicSeriesAppStats.AddAsync(new ComicSeriesAppStats());
 
-        await context.SaveChangesAsync();
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch
+        {
+            return Results.InternalServerError("[ERROR] CreateComicSeries database error");
+        }
 
         return Results.Ok(comicSeries);
     }

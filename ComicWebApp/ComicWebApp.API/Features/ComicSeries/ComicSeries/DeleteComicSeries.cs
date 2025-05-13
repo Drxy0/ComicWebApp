@@ -1,4 +1,5 @@
 ﻿using ComicWebApp.API.Endpoints;
+using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 
 namespace ComicWebApp.API.Features.ComicSeries.ComicSeries;
@@ -15,10 +16,12 @@ public class DeleteComicSeries
 
     public static async Task<IResult> Handler(AppDbContext context, Guid id)
     {
-        var existingSeries = await context.ComicSeries.FindAsync(id);
+        ComicSeriesModel? existingSeries = await context.ComicSeries.FindAsync(id);
 
         if (existingSeries is null)
+        {
             return Results.NotFound();
+        }
 
         context.ComicSeries.Remove(existingSeries);
 
