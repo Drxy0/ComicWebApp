@@ -14,7 +14,8 @@ public static class Register
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("auth/register", Handler);
+            app.MapPost("auth/register", Handler)
+                .WithTags("Auth");
         }
     }
     public static async Task<IResult> Handler(Request request, AppDbContext context, TokenProvider tokenProvider)

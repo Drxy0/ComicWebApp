@@ -15,6 +15,7 @@ public class UpdateComicSeriesMetadata
         string? Penciler,
         string? Inker,
         string? Colorist,
+        string Title,
         string? Description,
         string? OriginalLanguage,
         PublicationStatus PublicationStatus,
@@ -26,7 +27,8 @@ public class UpdateComicSeriesMetadata
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPut("comic-series/{id:guid}/metadata", Handler);
+            app.MapPut("comic-series/{id:guid}/metadata", Handler)
+                .WithTags("Comic Series");
         }
     }
 
@@ -45,6 +47,7 @@ public class UpdateComicSeriesMetadata
         metadata.Penciler = request.Penciler;
         metadata.Inker = request.Inker;
         metadata.Colorist = request.Colorist;
+        metadata.Title = request.Title;
         metadata.Description = request.Description;
         metadata.OriginalLanguage = request.OriginalLanguage;
         metadata.PublicationStatus = request.PublicationStatus;
