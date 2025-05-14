@@ -11,21 +11,17 @@ public class CreateChapter
     public record RequestPage(int PageNumber, IFormFile ImageFile);
     public record Request(Guid SeriesId, string? Title, float Number, List<RequestPage> Pages);
 
-
     public class Endpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPost("chapter", Handler)
-                .DisableAntiforgery()   // Bypass CSRF for file uploads
+                .DisableAntiforgery()
                 .WithTags("Chapters");
         }
     }
 
-    public static async Task<IResult> Handler(
-        [FromForm] Request request,
-        AppDbContext context,
-        IWebHostEnvironment env)
+    public static async Task<IResult> Handler([FromForm] Request request, AppDbContext context, IWebHostEnvironment env)
     {
         ComicSeriesModel? series = await context.ComicSeries.FindAsync(request.SeriesId);
         if (series is null)
@@ -47,13 +43,13 @@ public class CreateChapter
         };
 
         context.ComicChapters.Add(chapter);
-        await context.SaveChangesAsync();  // Save to generate Chapter.Id
 
+        await context.SaveChangesAsync();
 
         string relativePath = Path.Combine(
             "ComicSeries",
-            $"{series.Metadata.Title} - {request.SeriesId.ToString().Substring(0, 7)}",     // In case there are two of the same name,
-            $"{chapter.Number} - {chapter.Title} - {chapter.Id.ToString().Substring(0, 7)}" // add guid to folder name
+            $"{series.Metadata.Title} - {series.Id.ToString().Substring(0, 7)}",
+            $"{chapter.Number} - {chapter.Title} - {chapter.Id.ToString().Substring(0, 7)}"
         );
 
         string uploadsPath = Path.Combine(env.WebRootPath, relativePath);

@@ -11,13 +11,12 @@ public class UpdateChapter
     public record RequestPage(int PageNumber, IFormFile ImageFile);
     public record Request(string? Title, float Number, List<RequestPage> Pages);
 
-    
     public class Endpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPut("chapter/{id:guid}", Handler)
-                .DisableAntiforgery()   // Bypass CSRF for file uploads
+                .DisableAntiforgery()
                 .WithTags("Chapters");
         }
     }
@@ -43,7 +42,6 @@ public class UpdateChapter
             return Results.NotFound($"Chapter with Id {id} does not have a related comic series");
         }
 
-        // 2. Update chapter metadata
         chapter.Title = request.Title;
         chapter.Number = request.Number;
 
@@ -52,9 +50,11 @@ public class UpdateChapter
             $"{series.Metadata.Title} - {series.Id.ToString().Substring(0, 7)}",
             $"{chapter.Number} - {chapter.Title} - {chapter.Id.ToString().Substring(0, 7)}"
         );
+
         string uploadsPath = Path.Combine(env.WebRootPath, relativePath);
         Directory.CreateDirectory(uploadsPath);
 
+        // File Processing Loop
         foreach (RequestPage requestPage in request.Pages.OrderBy(p => p.PageNumber))
         {
             IFormFile imageFile = requestPage.ImageFile;
@@ -70,14 +70,12 @@ public class UpdateChapter
 
             if (existingPage is not null)
             {
-                if (!string.IsNullOrEmpty(existingPage.ImageUrl))
-                {
-                    string oldFilePath = Path.Combine(env.WebRootPath, existingPage.ImageUrl.TrimStart('/'));
-                    if (File.Exists(oldFilePath))
-                    {
-                        File.Delete(oldFilePath);
-                    }
-                }
+               string oldFilePath = Path.Combine(env.WebRootPath, existingPage.ImageUrl.TrimStart('/'));
+               if (File.Exists(oldFilePath))
+               {
+                   File.Delete(oldFilePath);
+               }
+
                 existingPage.ImageUrl = imageUrl;
             }
             else
@@ -88,6 +86,7 @@ public class UpdateChapter
                     ImageUrl = imageUrl,
                     ChapterId = chapter.Id
                 };
+
                 chapter.Pages.Add(newPage);
             }
 
