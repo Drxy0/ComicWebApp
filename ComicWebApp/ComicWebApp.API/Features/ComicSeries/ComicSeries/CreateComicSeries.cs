@@ -15,6 +15,7 @@ public static class CreateComicSeries
         string? Penciler,
         string? Inker,
         string? Colorist,
+        string Title,
         string? Description,
         string? OriginalLanguage,
         PublicationStatus? PublicationStatus,
@@ -26,7 +27,8 @@ public static class CreateComicSeries
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("create", Handler);
+            app.MapPost("comic-series/create", Handler)
+                .WithTags("Comic Series");
         }
     }
 
@@ -41,6 +43,7 @@ public static class CreateComicSeries
             Penciler = request.Penciler,
             Inker = request.Inker,
             Colorist = request.Colorist,
+            Title = request.Title,
             Description = request.Description,
             OriginalLanguage = request.OriginalLanguage,
             PublicationStatus = request.PublicationStatus ?? PublicationStatus.Ongoing,

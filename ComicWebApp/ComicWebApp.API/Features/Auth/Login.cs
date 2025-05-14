@@ -16,7 +16,8 @@ public static class Login
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("auth/login", Handler);
+            app.MapPost("auth/login", Handler)
+                .WithTags("Auth");
         }
     }
 
