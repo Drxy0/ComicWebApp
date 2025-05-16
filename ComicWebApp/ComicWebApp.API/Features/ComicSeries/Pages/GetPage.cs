@@ -2,6 +2,9 @@
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Webp;
+using System.IO;
 
 namespace ComicWebApp.API.Features.ComicSeries.Pages;
 
@@ -17,8 +20,7 @@ public class GetPage
         }
     }
 
-    public static async Task<IResult> Handler([FromRoute] Guid id, 
-        AppDbContext context, IWebHostEnvironment env)
+    public static async Task<IResult> Handler([FromRoute] Guid id, AppDbContext context, IWebHostEnvironment env)
     {
         ComicPage? page = await context.ComicPages.FindAsync(id);
 
@@ -33,26 +35,32 @@ public class GetPage
 
         if (!File.Exists(imagePath))
         {
+            // QUESTION: This is more like internalServerError? This shouldn't happen
             return Results.NotFound("Page doesn't have an associated file");
         }
 
-        string contentType = GetContentType(imagePath);
-        
-        return Results.File(
-            imagePath,
-            contentType,
-            $"{page.PageNumber}{Path.GetExtension(imagePath)}");
-    }
 
-    private static string GetContentType(string path)
-    {
-        var extension = Path.GetExtension(path).ToLowerInvariant();
-        return extension switch
+        // TODO: Make it so images convert to webp in CreateChapter
+        // not every time client calls getPage (save multiple copies for multiple compression rates)
+        try
         {
-            ".jpg" or ".jpeg" => "image/jpeg",
-            ".png" => "image/png",
-            ".webp" => "image/webp",
-            _ => "application/octet-stream"
-        };
+            MemoryStream? memoryStream = await WebpConverter.ConvertToWebpAsync(imagePath, 70)!;
+
+            if (memoryStream is null)
+            {
+                return Results.InternalServerError("Error processing image");
+            }
+
+            return Results.File(
+                memoryStream,
+                "image/webp",
+                $"{page.PageNumber}.webp");
+        }
+        catch(ArgumentOutOfRangeException ex)
+        {
+            // QUESTION: How to handle this case
+            Console.WriteLine(ex.Message);
+            return Results.InternalServerError("Programmer is dumb dumb");
+        }
     }
 }
