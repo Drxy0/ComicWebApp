@@ -23,7 +23,9 @@ public class CreateChapter
 
     public static async Task<IResult> Handler([FromForm] Request request, AppDbContext context, IWebHostEnvironment env)
     {
-        ComicSeriesModel? series = await context.ComicSeries.FindAsync(request.SeriesId);
+        ComicSeriesModel? series = await context.ComicSeries
+            .Include(s => s.Metadata)
+            .FirstOrDefaultAsync(s => s.Id == request.SeriesId);
         if (series is null)
         {
             return Results.NotFound($"Comic series with Id {request.SeriesId} not found");
@@ -46,46 +48,58 @@ public class CreateChapter
 
         await context.SaveChangesAsync();
 
-        string relativePath = Path.Combine(
-            "ComicSeries",
-            $"{series.Metadata.Title} - {series.Id.ToString().Substring(0, 7)}",
-            $"{chapter.Number} - {chapter.Title} - {chapter.Id.ToString().Substring(0, 7)}"
-        );
-
-        string uploadsPath = Path.Combine(env.WebRootPath, relativePath);
-        Directory.CreateDirectory(uploadsPath);
-
-        // File Processing Loop
-        foreach (RequestPage requestPage in request.Pages.OrderBy(p => p.PageNumber))
+        try
         {
-            IFormFile imageFile = requestPage.ImageFile;
-            if (imageFile is null || imageFile.Length == 0)
-                continue;
+            string relativePath = Path.Combine(
+                "ComicSeries",
+                $"{series.Metadata.Title} - {series.Id.ToString().Substring(0, 8)}",
+                $"{chapter.Number} - {chapter.Title} - {chapter.Id.ToString().Substring(0, 8)}"
+            );
 
-            string extension = Path.GetExtension(imageFile.FileName).ToLower();
-            string fileName = $"{requestPage.PageNumber}{extension}";
+            string uploadsPath = Path.Combine(env.WebRootPath, relativePath);
+            Directory.CreateDirectory(uploadsPath);
 
-            string absoluteFilePath = Path.Combine(uploadsPath, fileName);
-
-            using (FileStream stream = File.Create(absoluteFilePath))
+            // File Processing Loop
+            foreach (RequestPage requestPage in request.Pages.OrderBy(p => p.PageNumber))
             {
-                await imageFile.CopyToAsync(stream);
+                IFormFile imageFile = requestPage.ImageFile;
+                if (imageFile is null || imageFile.Length == 0)
+                    continue;
+
+                string extension = Path.GetExtension(imageFile.FileName).ToLower();
+                string fileName = $"{requestPage.PageNumber}{extension}";
+
+                string absoluteFilePath = Path.Combine(uploadsPath, fileName);
+
+                using (FileStream stream = File.Create(absoluteFilePath))
+                {
+                    await imageFile.CopyToAsync(stream);
+                }
+
+                string imageUrl = $"/{Path.Combine(relativePath, fileName).Replace("\\", "/")}";
+
+                ComicPage page = new ComicPage
+                {
+                    PageNumber = requestPage.PageNumber,
+                    ImageUrl = imageUrl,
+                    ChapterId = chapter.Id
+                };
+
+                chapter.Pages.Add(page);
             }
 
-            string imageUrl = $"/{Path.Combine(relativePath, fileName).Replace("\\", "/")}";
+            await context.SaveChangesAsync();
 
-            ComicPage page = new ComicPage
-            {
-                PageNumber = requestPage.PageNumber,
-                ImageUrl = imageUrl,
-                ChapterId = chapter.Id
-            };
+            return Results.Created($"chapter/{chapter.Id}", chapter);
+        } 
+        catch (Exception ex)
+        {
+            context.ComicChapters.Remove(chapter);
+            await context.SaveChangesAsync();
 
-            chapter.Pages.Add(page);
+            //TODO: Add proper logging
+            Console.WriteLine($"[ERROR] Failed to save uploaded files: {ex.Message}");
+            return Results.InternalServerError("Error saving the uploaded files");
         }
-
-        await context.SaveChangesAsync();
-
-        return Results.Created($"chapter/{chapter.Id}", chapter);
     }
 }

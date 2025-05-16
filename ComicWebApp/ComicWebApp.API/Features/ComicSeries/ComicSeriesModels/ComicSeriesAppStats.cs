@@ -1,4 +1,5 @@
 ﻿using ComicWebApp.API.Abstractions;
+using System.Text.Json.Serialization;
 
 namespace ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 
@@ -9,5 +10,6 @@ public class ComicSeriesAppStats : Entity
     public int NumberOfReaders { get; set; }
     public float CompletionRate { get; set; }  // Percentage of readers who finished the comic
     public float DropRate { get; set; }  // Percentage of readers who dropped it
+    [JsonIgnore]
     public ComicSeriesModel? ComicSeries { get; set; } // FK
 }
