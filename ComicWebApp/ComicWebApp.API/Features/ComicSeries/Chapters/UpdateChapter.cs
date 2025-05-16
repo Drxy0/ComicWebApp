@@ -1,4 +1,5 @@
 ﻿using ComicWebApp.API.Endpoints;
+using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -47,12 +48,9 @@ public class UpdateChapter
 
         string relativePath = Path.Combine(
             "ComicSeries",
-            $"{series.Metadata.Title} - {series.Id.ToString().Substring(0, 7)}",
-            $"{chapter.Number} - {chapter.Title} - {chapter.Id.ToString().Substring(0, 7)}"
+            ComicPathHelper.GetSeriesFolderName(chapter.Series!),
+            ComicPathHelper.GetChapterFolderName(chapter)
         );
-
-        string uploadsPath = Path.Combine(env.WebRootPath, relativePath);
-        Directory.CreateDirectory(uploadsPath);
 
         // File Processing Loop
         foreach (RequestPage requestPage in request.Pages.OrderBy(p => p.PageNumber))
@@ -61,10 +59,10 @@ public class UpdateChapter
             if (imageFile is null || imageFile.Length == 0)
                 continue;
 
-            string extension = Path.GetExtension(imageFile.FileName).ToLower();
-            string fileName = $"{requestPage.PageNumber}{extension}";
-            string absoluteFilePath = Path.Combine(uploadsPath, fileName);
-            string imageUrl = $"/{Path.Combine(relativePath, fileName).Replace("\\", "/")}";
+            string fileName = ComicPathHelper.GetFileName(requestPage.PageNumber, imageFile);
+            string imageUrl = ComicPathHelper.GetRelativeImageUrl(relativePath, fileName);
+            
+            string absoluteFilePath = Path.Combine(env.WebRootPath, imageUrl);
 
             ComicPage? existingPage = chapter.Pages.FirstOrDefault(p => p.PageNumber == requestPage.PageNumber);
 
@@ -98,6 +96,20 @@ public class UpdateChapter
 
         await context.SaveChangesAsync();
 
-        return Results.Ok(chapter);
+        ChapterResponse response = new ChapterResponse(
+            chapter.Title,
+            chapter.Number,
+            chapter.Id,
+            chapter.SeriesId,
+            chapter.Pages
+                .OrderBy(p => p.PageNumber)
+                .Select(p => new ChapterFilesResponse(
+                    Id: p.Id,
+                    PageNumber: p.PageNumber
+                ))
+                .ToList()
+        );
+
+        return Results.Ok(response);
     }
 }

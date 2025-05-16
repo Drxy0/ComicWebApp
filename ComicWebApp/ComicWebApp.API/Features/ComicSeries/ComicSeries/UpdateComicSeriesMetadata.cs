@@ -56,6 +56,6 @@ public class UpdateComicSeriesMetadata
 
         await context.SaveChangesAsync();
 
-        return Results.Ok(metadata);
+        return Results.Ok(request);
     }
 }

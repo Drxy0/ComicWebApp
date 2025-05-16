@@ -24,9 +24,11 @@ public class DeleteChapter
             return Results.NotFound($"Chapter with Id {id} not found");
         }
 
+        // QUESTION:
+        // TODO: Delete all associated files, mby it can be done in mappings or somewhere else?
         context.ComicChapters.Remove(chapter);
         await context.SaveChangesAsync();
 
-        return Results.Ok(chapter);
+        return Results.Ok();
     }
 }

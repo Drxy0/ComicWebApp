@@ -1,7 +1,9 @@
 ﻿using ComicWebApp.API.Endpoints;
+using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ComicWebApp.API.Features.ComicSeries.Chapters;
 
@@ -18,12 +20,29 @@ public class GetChapter
 
     public static async Task<IResult> Handler([FromRoute] Guid id, AppDbContext context)
     {
-        ComicChapter? chapter = await context.ComicChapters.FindAsync(id);
+        ComicChapter? chapter = await context.ComicChapters
+            .Include(c => c.Pages)
+            .FirstOrDefaultAsync(c => c.Id == id);
+        
         if (chapter is null)
         {
             return Results.NotFound($"Chapter with Id {id} not found");
         }
 
-        return Results.Ok(chapter);
+        ChapterResponse response = new ChapterResponse(
+            chapter.Title,
+            chapter.Number,
+            chapter.Id,
+            chapter.SeriesId,
+            chapter.Pages
+                .OrderBy(p => p.PageNumber)
+                .Select(p => new ChapterFilesResponse(
+                    Id: p.Id,
+                    PageNumber: p.PageNumber
+                ))
+                .ToList()
+        );
+
+        return Results.Ok(response);
     }
 }

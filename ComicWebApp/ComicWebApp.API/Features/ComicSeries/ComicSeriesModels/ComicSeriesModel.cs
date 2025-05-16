@@ -6,6 +6,6 @@ public class ComicSeriesModel : Entity
 {
     public ComicSeriesMetadata Metadata { get; set; }
     public ComicSeriesAppStats Stats { get; set; }
-    public List<ComicChapter> Chapters { get; set; } = new();
+    public List<ComicChapter> Chapters { get; set; }
     public bool IsVerified { get; set; }
 }
