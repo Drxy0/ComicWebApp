@@ -3,7 +3,6 @@ using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using static ComicWebApp.API.Features.ComicSeries.Chapters.GetChapter;
 
 namespace ComicWebApp.API.Features.ComicSeries.Chapters;
 

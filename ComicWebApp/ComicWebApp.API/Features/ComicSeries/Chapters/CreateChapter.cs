@@ -52,8 +52,8 @@ public class CreateChapter
         {
             string relativePath = Path.Combine(
                 "ComicSeries",
-                $"{series.Metadata.Title} - {series.Id.ToString().Substring(0, 8)}",
-                $"{chapter.Number} - {chapter.Title} - {chapter.Id.ToString().Substring(0, 8)}"
+                ComicPathHelper.GetSeriesFolderName(chapter.Series!),
+                ComicPathHelper.GetChapterFolderName(chapter)
             );
 
             string uploadsPath = Path.Combine(env.WebRootPath, relativePath);
@@ -66,8 +66,10 @@ public class CreateChapter
                 if (imageFile is null || imageFile.Length == 0)
                     continue;
 
-                string extension = Path.GetExtension(imageFile.FileName).ToLower();
-                string fileName = $"{requestPage.PageNumber}{extension}";
+                string fileName = ComicPathHelper.GetImageFileName(
+                    requestPage.PageNumber,
+                    Path.GetExtension(imageFile.FileName)
+                );
 
                 string absoluteFilePath = Path.Combine(uploadsPath, fileName);
 

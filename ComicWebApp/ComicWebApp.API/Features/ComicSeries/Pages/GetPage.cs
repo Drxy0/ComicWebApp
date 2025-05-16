@@ -2,9 +2,6 @@
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Webp;
-using System.IO;
 
 namespace ComicWebApp.API.Features.ComicSeries.Pages;
 

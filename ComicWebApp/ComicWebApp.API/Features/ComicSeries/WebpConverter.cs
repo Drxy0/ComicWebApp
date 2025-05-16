@@ -1,7 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Webp;
 
-namespace ComicWebApp.API.Features.ComicSeries.Pages;
+namespace ComicWebApp.API.Features.ComicSeries;
 
 public static class WebpConverter
 {
