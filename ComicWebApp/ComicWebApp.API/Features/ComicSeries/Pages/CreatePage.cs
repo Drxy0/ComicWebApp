@@ -15,7 +15,6 @@ public class CreatePage
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             // QUESTION: "chapter/{chapterId:guid}/page" or "page" and put chapterId in request body
-
             app.MapPost("/page", Handler)
                 .DisableAntiforgery()
                 .WithTags("Pages");
@@ -41,15 +40,10 @@ public class CreatePage
         );
 
         string uploadsPath = Path.Combine(env.WebRootPath, relativePath);
-
-        string fileName = ComicPathHelper.GetImageFileName(
-            request.PageNumber,
-            Path.GetExtension(request.ImageFile.FileName)
-        );
-
-        string absoluteFilePath = Path.Combine(env.WebRootPath, relativePath, fileName);
-
-        string imageUrl = $"/{Path.Combine(relativePath, fileName).Replace("\\", "/")}";
+        string fileName = ComicPathHelper.GetFileName(request.PageNumber, request.ImageFile);
+        string imageUrl = ComicPathHelper.GetRelativeImageUrl(relativePath, fileName);
+        
+        string absoluteFilePath = Path.Combine(env.WebRootPath, imageUrl);
 
         ComicPage? existingPage = chapter.Pages.Find(p => p.PageNumber == request.PageNumber);
         if (existingPage is not null)
