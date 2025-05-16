@@ -32,8 +32,7 @@ public class GetPage
 
         if (!File.Exists(imagePath))
         {
-            // QUESTION: This is more like internalServerError? This shouldn't happen
-            return Results.NotFound("Page doesn't have an associated file");
+            return Results.InternalServerError("Page doesn't have an associated file");
         }
 
 

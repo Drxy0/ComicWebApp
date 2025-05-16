@@ -1,6 +1,5 @@
 ﻿using ComicWebApp.API.Abstractions;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
-using System.Text.Json.Serialization;
 
 namespace ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 
@@ -24,7 +23,6 @@ public class ComicSeriesMetadata : Entity
     public PublicationStatus PublicationStatus { get; set; }
     public List<Genre> Genres { get; set; }
     public List<Theme> Themes { get; set; }
-    [JsonIgnore]
     public ComicSeriesModel? ComicSeries { get; set; } // FK
 
 }

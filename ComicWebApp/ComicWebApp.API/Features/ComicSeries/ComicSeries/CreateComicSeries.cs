@@ -1,4 +1,5 @@
 ﻿using ComicWebApp.API.Endpoints;
+using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 using ComicWebApp.API.Infrastructure.Data;
@@ -55,6 +56,7 @@ public static class CreateComicSeries
         {
             Metadata = metadata,
             Stats = new ComicSeriesAppStats(),
+            Chapters = new List<ComicChapter>(),
             IsVerified = false
         };
 
@@ -69,7 +71,31 @@ public static class CreateComicSeries
             return Results.InternalServerError("[ERROR] CreateComicSeries database error");
         }
 
-        return Results.Ok(comicSeries);
-    }
+        ComicSeriesMetadataDto metadataDto = new ComicSeriesMetadataDto(
+            metadata.Id,
+            metadata.Title,
+            metadata.Author,
+            metadata.Artist,
+            metadata.YearOfRelease,
+            metadata.Writer,
+            metadata.Penciler,
+            metadata.Inker,
+            metadata.Colorist,
+            metadata.Description,
+            metadata.OriginalLanguage,
+            metadata.PublicationStatus,
+            metadata.Genres,
+            metadata.Themes
+        );
 
+        ComicSeriesResponse response = new ComicSeriesResponse(
+            comicSeries.Id,
+            metadataDto,
+            null,
+            null,
+            comicSeries.IsVerified
+        );
+
+        return Results.Ok(response);
+    }
 }

@@ -1,8 +1,10 @@
 ﻿using ComicWebApp.API.Endpoints;
+using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static ComicWebApp.API.Features.ComicSeries.Chapters.GetChapter;
 
 namespace ComicWebApp.API.Features.ComicSeries.Chapters;
 
@@ -89,7 +91,21 @@ public class CreateChapter
 
             await context.SaveChangesAsync();
 
-            return Results.Created($"chapter/{chapter.Id}", chapter);
+            ChapterResponse response = new ChapterResponse(
+                chapter.Title,
+                chapter.Number,
+                chapter.Id,
+                chapter.SeriesId,
+                chapter.Pages
+                    .OrderBy(p => p.PageNumber)
+                    .Select(p => new ChapterFilesResponse(
+                        Id: p.Id,
+                        PageNumber: p.PageNumber
+                    ))
+                    .ToList()
+            );
+
+            return Results.Created($"chapter/{chapter.Id}", response);
         } 
         catch (Exception ex)
         {

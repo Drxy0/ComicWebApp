@@ -1,4 +1,5 @@
 ﻿using ComicWebApp.API.Endpoints;
+using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -46,15 +47,27 @@ public class UpdatePage
 
         string absoluteFilePath = Path.Combine(env.WebRootPath, newRelativeUrl);
 
-        await using (var stream = File.Create(absoluteFilePath))
+        try
         {
-            await request.ImageFile.CopyToAsync(stream);
+            await using (FileStream stream = File.Create(absoluteFilePath))
+            {
+                await request.ImageFile.CopyToAsync(stream);
+            }
+
+            page.ImageUrl = newRelativeUrl;
+
+            await context.SaveChangesAsync();
+
+            ComicPageResponse response = new ComicPageResponse(
+                page.Id, page.ChapterId,
+                page.PageNumber, page.ImageUrl
+            );
+
+            return Results.Ok(response);
         }
-
-        page.ImageUrl = newRelativeUrl;
-
-        await context.SaveChangesAsync();
-
-        return Results.Ok();
+        catch (Exception ex)
+        {
+            return Results.InternalServerError("Error saving the file");
+        }
     }
 }

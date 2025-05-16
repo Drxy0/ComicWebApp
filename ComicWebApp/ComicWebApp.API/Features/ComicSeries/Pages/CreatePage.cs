@@ -1,7 +1,10 @@
-﻿using ComicWebApp.API.Endpoints;
+﻿
+using ComicWebApp.API.Endpoints;
+using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComicWebApp.API.Features.ComicSeries.Pages;
@@ -14,9 +17,7 @@ public class CreatePage
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            // QUESTION: "chapter/{chapterId:guid}/page" or "page" and put chapterId in request body
             app.MapPost("/page", Handler)
-                .DisableAntiforgery()
                 .WithTags("Pages");
         }
     }
@@ -45,6 +46,7 @@ public class CreatePage
         
         string absoluteFilePath = Path.Combine(env.WebRootPath, imageUrl);
 
+        ComicPage? pageToReturn = null;
         ComicPage? existingPage = chapter.Pages.Find(p => p.PageNumber == request.PageNumber);
         if (existingPage is not null)
         {
@@ -55,6 +57,7 @@ public class CreatePage
             }
 
             existingPage.ImageUrl = imageUrl;
+            pageToReturn = existingPage;
         }
         else
         {
@@ -67,16 +70,30 @@ public class CreatePage
             };
 
             chapter.Pages.Add(newPage);
+            pageToReturn = newPage;
         }
 
-        using (FileStream stream = File.Create(absoluteFilePath))
+        try
         {
-            await request.ImageFile.CopyToAsync(stream);
+            using (FileStream stream = File.Create(absoluteFilePath))
+            {
+                await request.ImageFile.CopyToAsync(stream);
+            }
+
+            await context.SaveChangesAsync();
+
+            ComicPageResponse response = new ComicPageResponse(
+                pageToReturn.Id, pageToReturn.ChapterId,
+                pageToReturn.PageNumber, pageToReturn.ImageUrl
+            );
+
+            return Results.Created($"page/{pageToReturn.Id}", response);
+        }
+        catch (Exception ex)
+        {
+            return Results.InternalServerError("Error saving the file");
         }
 
-        await context.SaveChangesAsync();
-
-        return Results.Created();
     }
 
 }

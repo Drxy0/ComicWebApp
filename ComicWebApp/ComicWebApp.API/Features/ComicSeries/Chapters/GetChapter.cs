@@ -1,4 +1,5 @@
 ﻿using ComicWebApp.API.Endpoints;
+using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -8,8 +9,6 @@ namespace ComicWebApp.API.Features.ComicSeries.Chapters;
 
 public class GetChapter
 {
-    public record GetChapterFilesResponse(Guid Id, int PageNumber);
-    public record GetChapterResponse(string? Title, float Number, Guid Id, Guid SeriesId, List<GetChapterFilesResponse> Pages);
     public class Endpnoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
@@ -30,14 +29,14 @@ public class GetChapter
             return Results.NotFound($"Chapter with Id {id} not found");
         }
 
-        GetChapterResponse response = new GetChapterResponse(
+        ChapterResponse response = new ChapterResponse(
             chapter.Title,
             chapter.Number,
             chapter.Id,
             chapter.SeriesId,
             chapter.Pages
                 .OrderBy(p => p.PageNumber)
-                .Select(p => new GetChapterFilesResponse(
+                .Select(p => new ChapterFilesResponse(
                     Id: p.Id,
                     PageNumber: p.PageNumber
                 ))

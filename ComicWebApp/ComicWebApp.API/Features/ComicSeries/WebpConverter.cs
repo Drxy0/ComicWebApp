@@ -14,31 +14,32 @@ public static class WebpConverter
             throw new ArgumentOutOfRangeException(nameof(quality), "Quality must be between 1-100");
         }
 
-        MemoryStream memoryStream = new MemoryStream();
-        
-        try
+        using (MemoryStream memoryStream = new MemoryStream())
         {
-            using (Image image = await Image.LoadAsync(imagePath))
+            try
             {
-                WebpEncoder encoder = new WebpEncoder
+                using (Image image = await Image.LoadAsync(imagePath))
                 {
-                    Quality = quality, // 70 is good balance
-                    Method = WebpEncodingMethod.Default,
-                    UseAlphaCompression = true,
-                    SkipMetadata = true
-                };
+                    WebpEncoder encoder = new WebpEncoder
+                    {
+                        Quality = quality, // 70 is good balance
+                        Method = WebpEncodingMethod.Default,
+                        UseAlphaCompression = true,
+                        SkipMetadata = true
+                    };
 
-                await image.SaveAsync(memoryStream, encoder);
+                    await image.SaveAsync(memoryStream, encoder);
+                }
+
+                memoryStream.Position = 0;
+                return memoryStream;
             }
-
-            memoryStream.Position = 0;
-            return memoryStream;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Error] Failed to process image: {ex.Message}");
+                return null!;
+            }
         }
-        catch (Exception ex)
-        {
-            await memoryStream.DisposeAsync();
-            Console.WriteLine($"[Error] Failed to process image: {ex.Message}");
-            return null!;
-        }
+        
     }
 }

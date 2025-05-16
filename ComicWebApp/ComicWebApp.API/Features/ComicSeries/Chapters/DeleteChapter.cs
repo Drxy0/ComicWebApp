@@ -29,6 +29,6 @@ public class DeleteChapter
         context.ComicChapters.Remove(chapter);
         await context.SaveChangesAsync();
 
-        return Results.Ok(chapter);
+        return Results.Ok();
     }
 }
