@@ -71,22 +71,7 @@ public static class CreateComicSeries
             return Results.InternalServerError("[ERROR] CreateComicSeries database error");
         }
 
-        ComicSeriesMetadataDto metadataDto = new ComicSeriesMetadataDto(
-            metadata.Id,
-            metadata.Title,
-            metadata.Author,
-            metadata.Artist,
-            metadata.YearOfRelease,
-            metadata.Writer,
-            metadata.Penciler,
-            metadata.Inker,
-            metadata.Colorist,
-            metadata.Description,
-            metadata.OriginalLanguage,
-            metadata.PublicationStatus,
-            metadata.Genres,
-            metadata.Themes
-        );
+        ComicSeriesMetadataDto metadataDto = new ComicSeriesMetadataDto(metadata);
 
         ComicSeriesResponse response = new ComicSeriesResponse(
             comicSeries.Id,

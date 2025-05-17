@@ -33,22 +33,7 @@ public class GetComicSeries
             return Results.NotFound($"Comic Series with Id {id} not found");
         }
 
-        ComicSeriesMetadataDto metadataDto = new ComicSeriesMetadataDto(
-            comicSeries.Metadata.Id,
-            comicSeries.Metadata.Title,
-            comicSeries.Metadata.Author,
-            comicSeries.Metadata.Artist,
-            comicSeries.Metadata.YearOfRelease,
-            comicSeries.Metadata.Writer,
-            comicSeries.Metadata.Penciler,
-            comicSeries.Metadata.Inker,
-            comicSeries.Metadata.Colorist,
-            comicSeries.Metadata.Description,
-            comicSeries.Metadata.OriginalLanguage,
-            comicSeries.Metadata.PublicationStatus,
-            comicSeries.Metadata.Genres ?? new List<Genre>(),
-            comicSeries.Metadata.Themes ?? new List<Theme>()
-        );
+        ComicSeriesMetadataDto metadataDto = new ComicSeriesMetadataDto(comicSeries.Metadata);
 
         ComicSeriesAppStatsDto statsDto = new ComicSeriesAppStatsDto(
             comicSeries.Stats.Id,

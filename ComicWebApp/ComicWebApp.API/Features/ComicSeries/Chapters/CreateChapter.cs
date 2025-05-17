@@ -91,21 +91,7 @@ public class CreateChapter
 
             await context.SaveChangesAsync();
 
-            ChapterResponse response = new ChapterResponse(
-                chapter.Title,
-                chapter.Number,
-                chapter.Id,
-                chapter.SeriesId,
-                chapter.Pages
-                    .OrderBy(p => p.PageNumber)
-                    .Select(p => new ChapterFilesResponse(
-                        Id: p.Id,
-                        PageNumber: p.PageNumber
-                    ))
-                    .ToList()
-            );
-
-            return Results.Created($"chapter/{chapter.Id}", response);
+            return Results.Created($"chapter/{chapter.Id}", new ChapterResponse(chapter));
         } 
         catch (Exception ex)
         {

@@ -29,20 +29,6 @@ public class GetChapter
             return Results.NotFound($"Chapter with Id {id} not found");
         }
 
-        ChapterResponse response = new ChapterResponse(
-            chapter.Title,
-            chapter.Number,
-            chapter.Id,
-            chapter.SeriesId,
-            chapter.Pages
-                .OrderBy(p => p.PageNumber)
-                .Select(p => new ChapterFilesResponse(
-                    Id: p.Id,
-                    PageNumber: p.PageNumber
-                ))
-                .ToList()
-        );
-
-        return Results.Ok(response);
+        return Results.Ok(new ChapterResponse(chapter));
     }
 }
