@@ -22,6 +22,7 @@ public class GetComicSeries
     public static async Task<IResult> Handler([FromRoute] Guid id, AppDbContext context)
     {
         ComicSeriesModel? comicSeries = await context.ComicSeries
+            .AsNoTracking()
             .Include(cs => cs.Metadata)
             .Include(cs => cs.Stats)
             .Include(cs => cs.Chapters)
