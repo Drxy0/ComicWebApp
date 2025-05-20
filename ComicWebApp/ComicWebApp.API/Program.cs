@@ -2,10 +2,12 @@ using ComicWebApp.API.Endpoints;
 using ComicWebApp.API.Features.Auth;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Scalar.AspNetCore;
+using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,11 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
+
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 builder.Services.AddEndpoints();
 builder.Services.AddOpenApi();
@@ -56,7 +63,7 @@ if (app.Environment.IsDevelopment())
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseHttpsRedirection(); // QUESTION: Cors breaks without this
+    app.UseHttpsRedirection(); // Cors breaks without this
 }
 
 app.UseCors("AllowAngularApp");

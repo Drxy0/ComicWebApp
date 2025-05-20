@@ -1,7 +1,7 @@
 ﻿using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 
-namespace ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
+namespace ComicWebApp.API.Features.ComicSeries.ComicSeries.Dtos;
 
 public record ComicSeriesMetadataDto(
     string Title,

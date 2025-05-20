@@ -1,4 +1,6 @@
-﻿namespace ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
+﻿using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
+
+namespace ComicWebApp.API.Features.ComicSeries.ComicSeries.Dtos;
 
 public record ComicSeriesResponse(
     Guid Id, 

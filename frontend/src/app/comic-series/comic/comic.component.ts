@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComicService } from '../../services/comic.service';
+import { ComicSeriesResponse } from '../../models/comic-series/comic-series-response.model';
 
 @Component({
   selector: 'app-comic',
@@ -9,6 +10,10 @@ import { ComicService } from '../../services/comic.service';
   styleUrl: './comic.component.scss'
 })
 export class ComicComponent {
+  metadata: any;
+  stats:any;
+  chapters:any;
+
   constructor(
     private route: ActivatedRoute,
     private comicService: ComicService
@@ -16,8 +21,13 @@ export class ComicComponent {
     this.route.params.subscribe(params => {
       const id = params['id'];
       comicService.getComicSeries(id).subscribe({
-        next: (data) => {
-          console.log(data);
+        next: (data: ComicSeriesResponse) => {
+          this.metadata = data.metadata;
+          this.stats = data.stats;
+          this.chapters = data.chapters;
+
+          console.log(this.metadata);
+
         },
         error: (err) => {
           console.log('Error');

@@ -1,6 +1,6 @@
 ﻿using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 
-namespace ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
+namespace ComicWebApp.API.Features.ComicSeries.ComicSeries.Dtos;
 
 public record ComicSeriesAppStatsDto(
     float Rating,

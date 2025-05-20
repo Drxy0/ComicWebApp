@@ -1,8 +1,8 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpClient } from '@angular/common/http';
-import { RegisterUserDto } from "../models/dtos/register-user.dto";
-import { LoginUserDto } from "../models/dtos/login-user.dto";
-import { RefreshTokenDto } from "../models/dtos/refresh-token.dto";
+import { RegisterUserDto } from "../models/auth/register-user.dto";
+import { LoginUserDto } from "../models/auth/login-user.dto";
+import { RefreshTokenDto } from "../models/auth/refresh-token.dto";
 import { Observable } from "rxjs";
 
 @Injectable({

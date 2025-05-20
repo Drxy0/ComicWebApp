@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { TranslatePipe } from "@ngx-translate/core";
-import { RegisterUserDto } from '../../models/dtos/register-user.dto';
+import { RegisterUserDto } from '../../models/auth/register-user.dto';
 import { Router } from '@angular/router';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { map, catchError } from 'rxjs';

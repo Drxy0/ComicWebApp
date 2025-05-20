@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { LoginUserDto } from '../../models/dtos/login-user.dto';
+import { LoginUserDto } from '../../models/auth/login-user.dto';
 import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-login',

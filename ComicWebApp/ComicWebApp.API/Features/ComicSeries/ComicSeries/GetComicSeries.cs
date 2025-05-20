@@ -1,5 +1,6 @@
 ﻿using ComicWebApp.API.Endpoints;
 using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
+using ComicWebApp.API.Features.ComicSeries.ComicSeries.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 using ComicWebApp.API.Infrastructure.Data;
