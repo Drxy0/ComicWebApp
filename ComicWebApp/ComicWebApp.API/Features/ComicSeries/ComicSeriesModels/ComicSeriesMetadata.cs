@@ -18,6 +18,7 @@ public class ComicSeriesMetadata : Entity
     public string? Inker { get; set; }
     public string? Colorist { get; set; }
 
+    public string? ImageUrl { get; set; }
     public string? Description { get; set; }
     public string? OriginalLanguage { get; set; }
     public PublicationStatus PublicationStatus { get; set; }

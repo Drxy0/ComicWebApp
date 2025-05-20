@@ -48,16 +48,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 var app = builder.Build();
 
-app.UseCors("AllowAngularApp");
-app.MapEndpoints();
-
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection(); // QUESTION: Cors breaks without this
+}
+
+app.UseCors("AllowAngularApp");
+app.MapEndpoints();
 
 app.UseAuthentication();
 app.UseAuthorization();

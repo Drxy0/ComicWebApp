@@ -4,7 +4,6 @@ using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 namespace ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 
 public record ComicSeriesMetadataDto(
-    Guid Id,
     string Title,
     string? Author,
     string? Artist,
@@ -13,6 +12,7 @@ public record ComicSeriesMetadataDto(
     string? Penciler,
     string? Inker,
     string? Colorist,
+    string? ImageUrl,
     string? Description,
     string? OriginalLanguage,
     PublicationStatus PublicationStatus,
@@ -21,7 +21,6 @@ public record ComicSeriesMetadataDto(
 )
 {
     public ComicSeriesMetadataDto(ComicSeriesMetadata metadata) : this(
-        metadata.Id,
         metadata.Title,
         metadata.Author,
         metadata.Artist,
@@ -30,6 +29,7 @@ public record ComicSeriesMetadataDto(
         metadata.Penciler,
         metadata.Inker,
         metadata.Colorist,
+        metadata.ImageUrl,
         metadata.Description,
         metadata.OriginalLanguage,
         metadata.PublicationStatus,

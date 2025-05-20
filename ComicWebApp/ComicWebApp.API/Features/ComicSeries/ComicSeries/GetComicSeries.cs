@@ -36,15 +36,8 @@ public class GetComicSeries
 
         ComicSeriesMetadataDto metadataDto = new ComicSeriesMetadataDto(comicSeries.Metadata);
 
-        ComicSeriesAppStatsDto statsDto = new ComicSeriesAppStatsDto(
-            comicSeries.Stats.Id,
-            comicSeries.Stats.Rating,
-            comicSeries.Stats.ReviewCount,
-            comicSeries.Stats.NumberOfReaders,
-            comicSeries.Stats.CompletionRate,
-            comicSeries.Stats.DropRate
-        );
-
+        ComicSeriesAppStatsDto statsDto = new ComicSeriesAppStatsDto(comicSeries.Stats);
+        
         List<ChapterResponse> chapters = comicSeries.Chapters?
             .OrderBy(ch => ch.Number)
             .Select(ch => new ChapterResponse(

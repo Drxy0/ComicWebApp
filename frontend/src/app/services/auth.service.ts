@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 })
 export class AuthService {
     private http = inject(HttpClient);
-    private apiPath = 'http://localhost:5298'; // QUESTION: Where do i place this, some config or env file mby?
+    private apiPath = 'http://localhost:5298';
 
     getUserAccessToken() {
         const accessToken = localStorage.getItem('access_token');

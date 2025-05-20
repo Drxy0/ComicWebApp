@@ -3,7 +3,6 @@
 namespace ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 
 public record ComicSeriesAppStatsDto(
-    Guid Id,
     float Rating,
     int ReviewCount,
     int NumberOfReaders,
@@ -12,7 +11,6 @@ public record ComicSeriesAppStatsDto(
 )
 {
     public ComicSeriesAppStatsDto(ComicSeriesAppStats stats) : this(
-        stats.Id,
         stats.Rating,
         stats.ReviewCount,
         stats.NumberOfReaders,
