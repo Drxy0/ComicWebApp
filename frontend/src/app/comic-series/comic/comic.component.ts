@@ -26,8 +26,6 @@ export class ComicComponent {
           this.stats = data.stats;
           this.chapters = data.chapters;
 
-          console.log(this.metadata);
-
         },
         error: (err) => {
           console.log('Error');

@@ -1,0 +1,39 @@
+:root {
+    --clr-black: #31393C;
+    --clr-blue: #119DA4;
+    --clr-orange: #CD5334;
+    --clr-grey: #D7DAE5;
+    --clr-white: #FEFFFE;
+
+    // Semantic aliases
+    --text-main: var(--clr-white);
+    --text-accent: var(--clr-orange);
+
+    --background-main: var(--clr-black);
+    --background-light: var(--clr-grey);
+    --background-accent: var(--clr-blue);
+}
+
+:root {
+    --ff-body: "Noto Sans", sans-serif;
+    --fs-400: 1rem;
+    --fs-500: 1.125rem;
+    --fs-600: 1.25rem;
+    --fs-700: 2.5rem;
+    --fs-900: 4rem;
+
+    @media (width > 1200px) {
+        --fs-700: 3rem;
+        --fs-900: 5rem;
+    }
+    
+    & {
+        // Semantic aliases
+        --font-size-rg: var(--fs-400);
+        --font-size-lg: var(--fs-500);
+        --font-size-xl: var(--fs-600);
+        
+        --font-size-heading-sm: var(--fs-700);
+        --font-size-heading-rg: var(--fs-900);
+    }
+}
