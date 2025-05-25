@@ -1,4 +1,4 @@
-export interface Chapter {
+export interface ComicChapter {
   title?: string;
   number: number;
   id: string;

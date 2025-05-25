@@ -1,0 +1,77 @@
+{
+  "AUTH": {
+    "LOGIN": "Prijava",
+    "EMAIL": "Email",
+    "PASSWORD": "Šifra",
+    "LOG_IN": "Prijavi se",
+    "REGISTER": "Registracija",
+    "USERNAME": "Korisničko ime",
+    "CONFIRM_PASSWORD": "Potvrdite šifru",
+  
+    "REQUIRED": "Obavezno polje",
+    "EMAIL_NOT_VALID_ERROR": "Email nije validan",
+    "PASSWORD_REQUIRED_ERROR": "Šifra je obavezna",
+    "PASSWORD_NOT_VALID_ERROR": "Šifra nije validna",
+    "PASSWORD_MIN_LENGTH_ERROR": "Šifra mora sadržati barem 8 karaktera",
+    "PASSWORD_DO_NOT_MATCH_ERROR": "Šifre se ne podudaraju"
+  },
+  "AUTHORS": {
+    "AUTHOR": "Autor",
+    "ARTIST": "Umjetnik",
+    "WRITER": "Pisac",
+    "PENCILER": "Crtač",
+    "INKER": "Inker",
+    "COLORIST": "Kolorist"
+  },
+  "PUBLICATION_STATUS": {
+      "ONGOING": "U toku",
+      "COMPLETED": "Završeno", 
+      "HIATUS": "Odloženo",
+      "CANCELLED": "Otkazano"
+  },
+  "GENRES": {
+    "ACTION": "Akcija",
+    "ADVENTURE": "Avantura",
+    "COMEDY": "Komedija",
+    "CRIME": "Krimi",
+    "CYBERPUNK": "Cyberpunk",
+    "DRAMA": "Drama",
+    "FANTASY": "Fantazija",
+    "HISTORICAL": "Istorijski",
+    "HORROR": "Horor",
+    "ISEKAI": "Isekai",
+    "MYSTERY": "Misterija",
+    "PHILOSOPHICAL": "Filozofski",
+    "PSYCHOLOGICAL": "Psihološki",
+    "ROMANCE": "Romantika",
+    "SCIENCE_FICTION": "Naučna fantastika",
+    "SEINEN": "Seinen",
+    "SHONEN": "Shonen",
+    "SHOJO": "Shojo",
+    "SUPERHERO": "Superheroji",
+    "SLICE_OF_LIFE": "Slice of life",
+    "SPORTS": "Sportski",
+    "THRILLER": "Triler",
+    "TRAGEDY": "Tragedija",
+    "WESTERN": "Vestern"
+  },
+  "THEMES": {
+    "ALIENS": "Vanzemaljci",
+    "ANIMALS": "Životinje",
+    "COOKING": "Kuvanje",
+    "DEMONS": "Demoni",
+    "GHOSTS": "Duhovi",
+    "MAFIA": "Mafija",
+    "MARTIAL_ARTS": "Borilačke vještine",
+    "MILITARY": "Vojska",
+    "MONSTERS": "Čudovišta",
+    "MUSIC": "Muzika",
+    "POST_APOCALYPTIC": "Postapokaliptični",
+    "REINCARNATION": "Reinkarnacija",
+    "SCHOOL": "Škola",
+    "SUPERNATURAL": "Natprirodno",
+    "SURVIVAL": "Preživljavanje",
+    "URBAN": "Urbani",
+    "ZOMBIES": "Zombiji"
+  }
+}

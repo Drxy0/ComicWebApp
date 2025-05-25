@@ -2,17 +2,21 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComicService } from '../../services/comic.service';
 import { ComicSeriesResponse } from '../../models/comic-series/comic-series-response.model';
+import { ComicMetadata } from '../../models/comic-series/comic-metadata.model';
+import { ComicStats } from '../../models/comic-series/comic-stats.model';
+import { ComicChapter } from '../../models/comic-series/comic-chapter.model';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-comic',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './comic.component.html',
   styleUrl: './comic.component.scss'
 })
 export class ComicComponent {
-  metadata: any;
-  stats:any;
-  chapters:any;
+  metadata!: ComicMetadata;
+  stats!: ComicStats;
+  chapters!: ComicChapter[];
 
   constructor(
     private route: ActivatedRoute,
@@ -23,9 +27,10 @@ export class ComicComponent {
       comicService.getComicSeries(id).subscribe({
         next: (data: ComicSeriesResponse) => {
           this.metadata = data.metadata;
-          this.stats = data.stats;
-          this.chapters = data.chapters;
+          this.stats = data.stats ?? {} as ComicStats;
+          this.chapters = data.chapters ?? [];
 
+          console.log(this.metadata);
         },
         error: (err) => {
           console.log('Error');

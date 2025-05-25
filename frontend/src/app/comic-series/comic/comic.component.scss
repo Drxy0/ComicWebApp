@@ -11,10 +11,6 @@
                          "image genres  genres"
                          "desc  desc    desc";
 
-    & > * {
-        background-color: red;
-    }
-    
     .cover-image {
         grid-area: image;
         min-height: 300px;

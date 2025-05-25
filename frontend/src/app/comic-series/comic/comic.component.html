@@ -1,8 +1,29 @@
 <div class="grid-container">
     <img class="cover-image" alt="Comic series cover image"/>
-    <div class="title">{{ this.metadata.title }}</div>
-    <div class="authors">{{ this.metadata.authors }}</div>
-    <div class="stats">{{ this.metadata.stats }}</div>
+    <h1 class="title">{{ this.metadata.title }}</h1>
+<div class="authors">
+    <!-- QUESTION: Ima li neki pametniji nacin da se ovo uradi? 
+     Takodje treba stilizovati u neki svoj mini grid-->
+    @if(this.metadata.author) {
+        {{ 'AUTHORS.AUTHOR' | translate }}: {{ this.metadata.author }}<br>
+    }
+    @if(this.metadata.artist) {
+        {{ 'AUTHORS.ARTIST' | translate }}: {{ this.metadata.artist }}<br>
+    }
+    @if(this.metadata.writer) {
+        {{ 'AUTHORS.WRITER' | translate }}: {{ this.metadata.writer }}<br>
+    }
+    @if(this.metadata.penciler) {
+        {{ 'AUTHORS.PENCILER' | translate }}: {{ this.metadata.penciler }}<br>
+    }
+    @if(this.metadata.inker) {
+        {{ 'AUTHORS.INKER' | translate }}: {{ this.metadata.inker }}<br>
+    }
+    @if(this.metadata.colorist) {
+        {{ 'AUTHORS.COLORIST' | translate }}: {{ this.metadata.colorist }}<br>
+    }
+</div>
+    <div class="stats">{{ this.stats }}</div>
     <div class="user-commands">User commands</div>
     <div class="genres">{{ this.metadata.genres }}</div>
     <div class="description">{{ this.metadata.description }}</div>
