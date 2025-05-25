@@ -1,0 +1,46 @@
+.grid-container {
+    max-width: 1200px;
+    display: grid;
+    margin: 0 auto;
+    gap: 14px;
+    grid-template-columns: 200px minmax(0, calc(620px - 3.5rem)) minmax(0, calc(620px - 3.5rem));
+
+    grid-template-areas: "image title   title"
+                         "image authors authors"
+                         "image stats   user"
+                         "image genres  genres"
+                         "desc  desc    desc";
+
+    & > * {
+        background-color: red;
+    }
+    
+    .cover-image {
+        grid-area: image;
+        min-height: 300px;
+    }
+
+    .title {
+        grid-area: title;
+    }
+
+    .authors {
+        grid-area: authors;
+    }
+
+    .stats {
+        grid-area: stats;
+    }
+
+    .user-commands {
+        grid-area: user;
+    }
+
+    .genres {
+        grid-area: genres;
+    }
+
+    .description {
+        grid-area: desc;
+    }
+}
