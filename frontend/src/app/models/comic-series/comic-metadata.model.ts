@@ -9,7 +9,6 @@ export interface ComicMetadata {
   penciler?: string;
   inker?: string;
   colorist?: string;
-  imageUrl?: string;
   description?: string;
   originalLanguage?: string;
   publicationStatus: PublicationStatus;

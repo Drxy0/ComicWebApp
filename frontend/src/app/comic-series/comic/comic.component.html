@@ -1,5 +1,5 @@
 <div class="grid-container">
-    <img class="cover-image" alt="Comic series cover image"/>
+    <img class="cover-image" alt="Comic series cover image" [src]="this.coverImageUrl"/>
     <h1 class="title">{{ this.metadata.title }}</h1>
 <div class="authors">
     @if(this.metadata.author) {

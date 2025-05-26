@@ -13,4 +13,10 @@ export class ComicService {
         return this.http.get<ComicSeriesResponse>(`${this.apiPath}/comic-series/${id}`);
     }
 
+    getCoverImage(id: string) {
+        return this.http.get(`${this.apiPath}/comic-series/${id}/cover-image`, {
+            responseType: 'blob'
+        });
+}
+
 }
