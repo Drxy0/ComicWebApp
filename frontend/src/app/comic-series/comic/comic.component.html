@@ -1,6 +1,11 @@
 <div class="grid-container">
     <img class="cover-image" alt="Comic series cover image" [src]="this.coverImageUrl"/>
-    <h1 class="title">{{ this.metadata.title }}</h1>
+    <div class="heading">
+        <h1 class="title">{{ this.metadata.title }}</h1>
+        <div class="publication-status publication-status--ongoing">
+            {{ this.metadata.publicationStatus }}
+        </div>
+    </div>
 <div class="authors">
     @if(this.metadata.author) {
         <span>{{ 'AUTHORS.AUTHOR' | translate }}: {{ this.metadata.author }}</span>
@@ -21,8 +26,15 @@
         <span>{{ 'AUTHORS.COLORIST' | translate }}: {{ this.metadata.colorist }}</span>
     }
 </div>
-    <div class="stats">{{ this.stats }}</div>
+    <div class="stats">Stats</div>
     <div class="user-commands">User commands</div>
-    <div class="genres">{{ this.metadata.genres }}</div>
+    <div class="genres">
+        @for(genre of this.metadata.genres; track genre) {
+            <div class="genre-item">{{ genre }}</div>
+        }
+        @for(theme of this.metadata.themes; track theme) {
+            <div class="genre-item">{{ theme }}</div>
+        }
+    </div>
     <div class="description">{{ this.metadata.description }}</div>
 </div>
