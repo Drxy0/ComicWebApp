@@ -59,7 +59,7 @@ public class UpdateChapter
             if (imageFile is null || imageFile.Length == 0)
                 continue;
 
-            string fileName = ComicPathHelper.GetFileName(requestPage.PageNumber, imageFile);
+            string fileName = ComicPathHelper.GetChapterFileName(requestPage.PageNumber, imageFile);
             string imageUrl = ComicPathHelper.GetRelativeImageUrl(relativePath, fileName);
             
             string absoluteFilePath = Path.Combine(env.WebRootPath, imageUrl);

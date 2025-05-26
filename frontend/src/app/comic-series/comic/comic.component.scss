@@ -23,6 +23,13 @@
 
     .authors {
         grid-area: authors;
+        height: fit-content;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: space-between;
+        @media (width < 700px) {
+            grid-template-columns: 1fr;
+        }
     }
 
     .stats {

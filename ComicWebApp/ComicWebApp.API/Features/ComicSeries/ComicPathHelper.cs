@@ -15,7 +15,7 @@ public static class ComicPathHelper
         return $"{chapter.Number} - {chapter.Title} - {chapter.Id.ToString()[..8]}";
     }
 
-    public static string GetFileName(int pageNumber, IFormFile imageFile)
+    public static string GetChapterFileName(int pageNumber, IFormFile imageFile)
     {
         return $"{pageNumber}{Path.GetExtension(imageFile.FileName).ToLower()}";
     }

@@ -68,7 +68,7 @@ public class CreateChapter
                 if (imageFile is null || imageFile.Length == 0)
                     continue;
 
-                string fileName = ComicPathHelper.GetFileName(requestPage.PageNumber, imageFile);
+                string fileName = ComicPathHelper.GetChapterFileName(requestPage.PageNumber, imageFile);
 
                 string absoluteFilePath = Path.Combine(uploadsPath, fileName);
 

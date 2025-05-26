@@ -2,25 +2,23 @@
     <img class="cover-image" alt="Comic series cover image"/>
     <h1 class="title">{{ this.metadata.title }}</h1>
 <div class="authors">
-    <!-- QUESTION: Ima li neki pametniji nacin da se ovo uradi? 
-     Takodje treba stilizovati u neki svoj mini grid-->
     @if(this.metadata.author) {
-        {{ 'AUTHORS.AUTHOR' | translate }}: {{ this.metadata.author }}<br>
+        <span>{{ 'AUTHORS.AUTHOR' | translate }}: {{ this.metadata.author }}</span>
     }
     @if(this.metadata.artist) {
-        {{ 'AUTHORS.ARTIST' | translate }}: {{ this.metadata.artist }}<br>
+        <span>{{ 'AUTHORS.ARTIST' | translate }}: {{ this.metadata.artist }}</span>
     }
     @if(this.metadata.writer) {
-        {{ 'AUTHORS.WRITER' | translate }}: {{ this.metadata.writer }}<br>
+        <span>{{ 'AUTHORS.WRITER' | translate }}: {{ this.metadata.writer }}</span>
     }
     @if(this.metadata.penciler) {
-        {{ 'AUTHORS.PENCILER' | translate }}: {{ this.metadata.penciler }}<br>
+        <span>{{ 'AUTHORS.PENCILER' | translate }}: {{ this.metadata.penciler }}</span>
     }
     @if(this.metadata.inker) {
-        {{ 'AUTHORS.INKER' | translate }}: {{ this.metadata.inker }}<br>
+        <span>{{ 'AUTHORS.INKER' | translate }}: {{ this.metadata.inker }}</span>
     }
     @if(this.metadata.colorist) {
-        {{ 'AUTHORS.COLORIST' | translate }}: {{ this.metadata.colorist }}<br>
+        <span>{{ 'AUTHORS.COLORIST' | translate }}: {{ this.metadata.colorist }}</span>
     }
 </div>
     <div class="stats">{{ this.stats }}</div>

@@ -2,12 +2,14 @@
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 using ComicWebApp.API.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ComicWebApp.API.Features.ComicSeries.ComicSeries;
 
 public class UpdateComicSeriesMetadata
 {
     public record Request(
+        IFormFile? CoverImage,
         string? Author,
         string? Artist,
         int? YearOfRelease,
@@ -32,9 +34,12 @@ public class UpdateComicSeriesMetadata
         }
     }
 
-    public static async Task<IResult> Handler(AppDbContext context, Request request, Guid id)
+    public static async Task<IResult> Handler(AppDbContext context, Request request, Guid id, IWebHostEnvironment env)
     {
-        ComicSeriesMetadata? metadata = await context.ComicSeriesMetadata.FindAsync(id);
+        ComicSeriesMetadata? metadata = await context.ComicSeriesMetadata
+            .Include(m => m.ComicSeries)
+            .FirstOrDefaultAsync(m => m.Id == id);
+
         if (metadata is null)
         {
             return Results.NotFound();
@@ -53,6 +58,28 @@ public class UpdateComicSeriesMetadata
         metadata.PublicationStatus = request.PublicationStatus;
         metadata.Genres = request.Genres ?? new List<Genre>();
         metadata.Themes = request.Themes ?? new List<Theme>();
+
+        if (request.CoverImage is not null)
+        {
+            string seriesRelativePath = Path.Combine(
+               "ComicSeries",
+               ComicPathHelper.GetSeriesFolderName(metadata.ComicSeries)
+            );
+
+            string seriesAbsolutePath = Path.Combine(env.WebRootPath, seriesRelativePath);
+            Directory.CreateDirectory(seriesAbsolutePath);
+
+            string fileName = "cover" + Path.GetExtension(request.CoverImage.FileName);
+
+            string filePath = Path.Combine(seriesAbsolutePath, fileName);
+
+            using (FileStream fstream = File.Create(filePath))
+            {
+                await request.CoverImage.CopyToAsync(fstream);
+            }
+
+            metadata.CoverImageUrl = Path.Combine(seriesRelativePath, fileName);
+        }
 
         await context.SaveChangesAsync();
 
