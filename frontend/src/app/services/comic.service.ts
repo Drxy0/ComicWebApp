@@ -7,7 +7,7 @@ import { ComicSeriesResponse } from "../models/comic-series/comic-series-respons
 })
 export class ComicService {
     private http = inject(HttpClient);
-    private apiPath = 'http://localhost:5298';
+    private apiPath = 'https://localhost:7299';
 
     getComicSeries(id: string) {
         return this.http.get<ComicSeriesResponse>(`${this.apiPath}/comic-series/${id}`);

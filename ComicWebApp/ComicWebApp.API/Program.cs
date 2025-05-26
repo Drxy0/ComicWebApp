@@ -61,12 +61,8 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection(); // Cors breaks without this
-}
-
 app.UseCors("AllowAngularApp");
+app.UseHttpsRedirection();
 app.MapEndpoints();
 
 app.UseAuthentication();
