@@ -2,11 +2,10 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComicService } from '../../services/comic.service';
 import { ComicSeriesResponse } from '../../models/comic-series/comic-series-response.model';
-import { ComicMetadata } from '../../models/comic-series/comic-metadata.model';
-import { ComicStats } from '../../models/comic-series/comic-stats.model';
-import { ComicChapter } from '../../models/comic-series/comic-chapter.model';
 import { TranslatePipe } from '@ngx-translate/core';
 import { catchError, of, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
+import { ComicStats } from '../../models/comic-series/comic-stats.model';
+import { PublicationStatus } from '../../models/enums/comic-metadata.enum';
 
 @Component({
   selector: 'app-comic',
@@ -15,22 +14,36 @@ import { catchError, of, Subject, Subscription, switchMap, takeUntil, tap } from
   styleUrl: './comic.component.scss'
 })
 export class ComicComponent implements OnDestroy {
-  comicData!: ComicSeriesResponse;
-  coverImageUrl: string | null = null;
-  getComicData$!: Subscription;
-  
-  private destroy$ = new Subject<void>();
   private defaultCoverImage = 'assets/default-cover.webp';
+  
+  comicData!: ComicSeriesResponse;
+  coverImageUrl: string = this.defaultCoverImage;
+  getComicData$!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private comicService: ComicService
   ) {
+    this.comicData = {
+      id: '',
+      isVerified: false,
+      metadata: {
+        title: 'Loading...', // Default values
+        publicationStatus: PublicationStatus.Ongoing,
+        genres: [],
+        themes: [],
+        description: ''
+        // other properties
+      },
+      stats: {} as ComicStats,
+      chapters: []
+    };
     this.getComicData$ = this.route.params.pipe(
       switchMap(params => {
         return this.comicService.getComicSeries(params['id']).pipe(
           tap((data: ComicSeriesResponse) => {
             this.comicData = data;
+            console.log(this.comicData.stats);
           }),
           switchMap(() => this.loadCoverImage(params['id'])),
           catchError(err => {

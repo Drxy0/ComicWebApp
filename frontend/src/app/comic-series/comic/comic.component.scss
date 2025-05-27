@@ -66,6 +66,32 @@
 
     .stats {
         grid-area: stats;
+        display: flex;
+        flex-direction: row;
+        font-size: var(--font-size-sm);
+        gap: 0.75rem;
+        flex-wrap: wrap;
+
+        .stats-item {
+            display: flex;
+            align-items: center;
+
+            .stats-item__rating {
+                color: var(--clr-orange-light);
+            }
+
+            .stats-item__number-of-readers {
+                color: var(--clr-white);
+            }
+
+            .stats-item__review-count {
+                color: var(--clr-blue-dark);
+            }
+
+            .stats-item__drop-rate {
+                color: var(--clr-red);
+            }
+        }
     }
 
     .user-commands {

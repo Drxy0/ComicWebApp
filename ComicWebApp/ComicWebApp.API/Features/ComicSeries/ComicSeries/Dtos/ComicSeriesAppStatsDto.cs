@@ -6,7 +6,6 @@ public record ComicSeriesAppStatsDto(
     float Rating,
     int ReviewCount,
     int NumberOfReaders,
-    float CompletionRate,
     float DropRate
 )
 {
@@ -14,7 +13,6 @@ public record ComicSeriesAppStatsDto(
         stats.Rating,
         stats.ReviewCount,
         stats.NumberOfReaders,
-        stats.CompletionRate,
         stats.DropRate)
     {
     }

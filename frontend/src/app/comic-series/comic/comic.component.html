@@ -26,7 +26,24 @@
         <span>{{ 'AUTHORS.COLORIST' | translate }}: {{ this.comicData.metadata.colorist }}</span>
     }
 </div>
-    <div class="stats">Stats</div>
+    <div class="stats">
+        <div class="stats-item">
+        <span class="stats-item__rating material-symbols-rounded">star</span>
+            <span>{{ this.comicData.stats?.rating }}</span>
+        </div>
+        <div class="stats-item">
+            <span class="stats-item__number-of-readers material-symbols-rounded">bookmark</span>
+            <span>{{ this.comicData.stats?.numberOfReaders }}</span>
+        </div>
+        <div class="stats-item">
+            <span class="stats-item__review-count material-symbols-rounded">edit_note</span>
+            <span>{{ this.comicData.stats?.reviewCount }}</span>
+        </div>
+        <div class="stats-item">
+            <span class="stats-item__drop-rate material-symbols-rounded">close</span>
+            <span>{{ this.comicData.stats?.dropRate }}%</span>
+        </div>
+    </div>
     <div class="user-commands">User commands</div>
     <div class="genres">
         @for(genre of this.comicData.metadata.genres; track genre) {
