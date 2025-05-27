@@ -16,7 +16,7 @@ public class Refresh
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPost("auth/refresh-token", Handler)
-                .WithTags("Auth");
+                .WithTags(Tags.Auth);
         }
     }
 

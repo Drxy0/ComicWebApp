@@ -1,0 +1,121 @@
+.grid-container {
+    max-width: 1200px;
+    display: grid;
+    margin: 2rem auto;
+    padding-inline: 2rem;
+    gap: 14px;
+    grid-template-columns: 200px minmax(0, calc(620px - 3.5rem)) minmax(0, calc(620px - 3.5rem));
+
+    grid-template-areas: "image title   title"
+                         "image authors authors"
+                         "image stats   user"
+                         "image genres  genres"
+                         "desc  desc    desc";
+
+    .cover-image {
+        grid-area: image;
+        min-height: 300px;
+    }
+
+    .heading {
+        grid-area: title;
+    }
+
+    .title {
+        color: var(--text-main);
+        margin-block: 0;
+    }
+    
+    .publication-status {
+        height: fit-content;
+        width: fit-content;
+        border-radius: 6px;
+        padding-inline: 0.75rem;
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+    }
+
+    .publication-status--ongoing {
+        background-color: var(--clr-green);
+    }
+
+    .publication-status--hiatus {
+        background-color: var(--clr-orange-light);
+    }
+
+    .publication-status--completed {
+        background-color: var(--clr-blue-dark);
+    }
+
+    .publication-status--cancelled {
+        background-color: var(--clr-red);
+    }
+
+    .authors {
+        grid-area: authors;
+        height: fit-content;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: space-between;
+        gap: 14px;
+
+        @media (width < 700px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .stats {
+        grid-area: stats;
+        display: flex;
+        flex-direction: row;
+        font-size: var(--font-size-sm);
+        gap: 0.75rem;
+        flex-wrap: wrap;
+
+        .stats-item {
+            display: flex;
+            align-items: center;
+
+            .stats-item__rating {
+                color: var(--clr-orange-light);
+            }
+
+            .stats-item__number-of-readers {
+                color: var(--clr-white);
+            }
+
+            .stats-item__review-count {
+                color: var(--clr-blue-dark);
+            }
+
+            .stats-item__drop-rate {
+                color: var(--clr-red);
+            }
+        }
+    }
+
+    .user-commands {
+        grid-area: user;
+    }
+
+    .genres {
+        grid-area: genres;
+        display: flex;
+        gap: 8px;
+    }
+
+    .description {
+        grid-area: desc;
+    }
+
+    .genre-item {
+        width: fit-content;
+        height: fit-content;
+        padding-inline: 10px;
+        background-color: var(--background-dark);
+        border-radius: 6px;
+        text-transform: uppercase;
+        font-size: var(--font-size-sm);
+        font-weight: 500;
+    }
+}

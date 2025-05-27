@@ -13,7 +13,7 @@ public class GetPage
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapGet("page/{id:guid}", Handler)
-                .WithTags("Pages");
+                .WithTags(Tags.Pages);
         }
     }
 

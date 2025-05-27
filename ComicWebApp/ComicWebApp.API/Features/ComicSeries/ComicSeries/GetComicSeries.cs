@@ -1,5 +1,6 @@
 ﻿using ComicWebApp.API.Endpoints;
 using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
+using ComicWebApp.API.Features.ComicSeries.ComicSeries.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 using ComicWebApp.API.Infrastructure.Data;
@@ -15,13 +16,14 @@ public class GetComicSeries
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapGet("comic-series/{id:guid}", Handler)
-                .WithTags("Comic Series");
+                .WithTags(Tags.ComicSeries);
         }
     }
 
     public static async Task<IResult> Handler([FromRoute] Guid id, AppDbContext context)
     {
         ComicSeriesModel? comicSeries = await context.ComicSeries
+            .AsNoTracking()
             .Include(cs => cs.Metadata)
             .Include(cs => cs.Stats)
             .Include(cs => cs.Chapters)
@@ -35,15 +37,8 @@ public class GetComicSeries
 
         ComicSeriesMetadataDto metadataDto = new ComicSeriesMetadataDto(comicSeries.Metadata);
 
-        ComicSeriesAppStatsDto statsDto = new ComicSeriesAppStatsDto(
-            comicSeries.Stats.Id,
-            comicSeries.Stats.Rating,
-            comicSeries.Stats.ReviewCount,
-            comicSeries.Stats.NumberOfReaders,
-            comicSeries.Stats.CompletionRate,
-            comicSeries.Stats.DropRate
-        );
-
+        ComicSeriesAppStatsDto statsDto = new ComicSeriesAppStatsDto(comicSeries.Stats);
+        
         List<ChapterResponse> chapters = comicSeries.Chapters?
             .OrderBy(ch => ch.Number)
             .Select(ch => new ChapterResponse(

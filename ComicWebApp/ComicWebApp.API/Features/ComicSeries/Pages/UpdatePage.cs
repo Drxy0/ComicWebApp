@@ -15,7 +15,7 @@ public class UpdatePage
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPut("page/{id:guid}", Handler)
-                .WithTags("Pages");
+                .WithTags(Tags.Pages);
         }
     }
 
@@ -42,7 +42,7 @@ public class UpdatePage
         }
 
         string relativeDirPath = ComicPathHelper.GetRelativeDirPath(page.ImageUrl);
-        string fileName = ComicPathHelper.GetFileName(page.PageNumber, request.ImageFile);
+        string fileName = ComicPathHelper.GetChapterFileName(page.PageNumber, request.ImageFile);
         string newRelativeUrl = $"{relativeDirPath}/{fileName}";
 
         string absoluteFilePath = Path.Combine(env.WebRootPath, newRelativeUrl);

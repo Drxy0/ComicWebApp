@@ -3,17 +3,20 @@ using System;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ComicWebApp.API.Migrations
+namespace ComicWebApp.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250520092444_AddImageUrlToMetadata")]
+    partial class AddImageUrlToMetadata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,6 +75,9 @@ namespace ComicWebApp.API.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
+                    b.Property<float>("CompletionRate")
+                        .HasColumnType("real");
+
                     b.Property<float>("DropRate")
                         .HasColumnType("real");
 
@@ -103,15 +109,15 @@ namespace ComicWebApp.API.Migrations
                     b.Property<string>("Colorist")
                         .HasColumnType("text");
 
-                    b.Property<string>("CoverImageUrl")
-                        .HasColumnType("text");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
                     b.PrimitiveCollection<int[]>("Genres")
                         .IsRequired()
                         .HasColumnType("integer[]");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
 
                     b.Property<string>("Inker")
                         .HasColumnType("text");

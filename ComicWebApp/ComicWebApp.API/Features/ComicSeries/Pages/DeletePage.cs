@@ -14,7 +14,7 @@ public class DeletePage
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapDelete("page/{id:guid}", Handler)
-                .WithTags("Pages");
+                .WithTags(Tags.Pages);
         }
     }
     

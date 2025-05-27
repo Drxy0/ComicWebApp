@@ -18,7 +18,7 @@ public class CreatePage
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPost("/page", Handler)
-                .WithTags("Pages");
+                .WithTags(Tags.Pages);
         }
     }
 
@@ -41,7 +41,7 @@ public class CreatePage
         );
 
         string uploadsPath = Path.Combine(env.WebRootPath, relativePath);
-        string fileName = ComicPathHelper.GetFileName(request.PageNumber, request.ImageFile);
+        string fileName = ComicPathHelper.GetChapterFileName(request.PageNumber, request.ImageFile);
         string imageUrl = ComicPathHelper.GetRelativeImageUrl(relativePath, fileName);
         
         string absoluteFilePath = Path.Combine(env.WebRootPath, imageUrl);

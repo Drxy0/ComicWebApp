@@ -1,10 +1,9 @@
 ﻿using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 
-namespace ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
+namespace ComicWebApp.API.Features.ComicSeries.ComicSeries.Dtos;
 
 public record ComicSeriesMetadataDto(
-    Guid Id,
     string Title,
     string? Author,
     string? Artist,
@@ -21,7 +20,6 @@ public record ComicSeriesMetadataDto(
 )
 {
     public ComicSeriesMetadataDto(ComicSeriesMetadata metadata) : this(
-        metadata.Id,
         metadata.Title,
         metadata.Author,
         metadata.Artist,

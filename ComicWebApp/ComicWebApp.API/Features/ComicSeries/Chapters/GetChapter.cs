@@ -14,13 +14,14 @@ public class GetChapter
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapGet("chapter/{id:guid}", Handler)
-                .WithTags("Chapters");
+                .WithTags(Tags.Chapters);
         }
     }
 
     public static async Task<IResult> Handler([FromRoute] Guid id, AppDbContext context)
     {
         ComicChapter? chapter = await context.ComicChapters
+            .AsNoTracking()
             .Include(c => c.Pages)
             .FirstOrDefaultAsync(c => c.Id == id);
         

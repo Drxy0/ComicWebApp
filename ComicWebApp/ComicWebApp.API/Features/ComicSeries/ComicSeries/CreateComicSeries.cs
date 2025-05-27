@@ -1,5 +1,5 @@
 ﻿using ComicWebApp.API.Endpoints;
-using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
+using ComicWebApp.API.Features.ComicSeries.ComicSeries.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.Enums;
 using ComicWebApp.API.Infrastructure.Data;
@@ -9,6 +9,7 @@ namespace ComicWebApp.API.Features.ComicSeries.ComicSeries;
 public static class CreateComicSeries
 {
     public record Request(
+        IFormFile? CoverImage,
         string? Author,
         string? Artist,
         int? YearOfRelease,
@@ -29,11 +30,11 @@ public static class CreateComicSeries
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPost("comic-series/create", Handler)
-                .WithTags("Comic Series");
+                .WithTags(Tags.ComicSeries);
         }
     }
 
-    public static async Task<IResult> Handler(Request request, AppDbContext context)
+    public static async Task<IResult> Handler(Request request, AppDbContext context, IWebHostEnvironment env)
     {
         ComicSeriesMetadata metadata = new ComicSeriesMetadata
         {
@@ -54,11 +55,34 @@ public static class CreateComicSeries
 
         ComicSeriesModel comicSeries = new ComicSeriesModel
         {
+            Id = Guid.NewGuid(),
             Metadata = metadata,
             Stats = new ComicSeriesAppStats(),
             Chapters = new List<ComicChapter>(),
             IsVerified = false
         };
+
+        if (request.CoverImage is not null)
+        {
+            string seriesRelativePath = Path.Combine(
+               "ComicSeries",
+               ComicPathHelper.GetSeriesFolderName(comicSeries)
+            );
+
+            string seriesAbsolutePath = Path.Combine(env.WebRootPath, seriesRelativePath);
+            Directory.CreateDirectory(seriesAbsolutePath);
+
+            string fileName = "cover" + Path.GetExtension(request.CoverImage.FileName);
+
+            string filePath = Path.Combine(seriesAbsolutePath, fileName);
+
+            using (FileStream fstream = File.Create(filePath))
+            {
+                await request.CoverImage.CopyToAsync(fstream);
+            }
+
+            metadata.CoverImageUrl = Path.Combine(seriesRelativePath, fileName);
+        }
 
         await context.ComicSeries.AddAsync(comicSeries);
 

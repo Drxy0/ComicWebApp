@@ -12,7 +12,7 @@ public class DeleteChapter
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapDelete("chapter/{id:guid}", Handler)
-                .WithTags("Chapters");
+                .WithTags(Tags.Chapters);
         }
     }
 
