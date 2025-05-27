@@ -30,7 +30,7 @@ public class UpdateComicSeriesMetadata
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPut("comic-series/{id:guid}/metadata", Handler)
-                .WithTags("Comic Series");
+                .WithTags(Tags.ComicSeries);
         }
     }
 

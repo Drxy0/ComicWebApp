@@ -1,24 +1,53 @@
-// question: one big enum file or one file for each?
-// Msm da sve ovo ide u tandemu, koristi se za display u comic/:id ruti
-// Al ako bih implementirao search feature, nzm dal da razdvojim, kapiram ne
-// Koristi se type umjesto enum, parsiracu ga na backu na enum
-export type PublicationStatus = 
-  | 'Ongoing' 
-  | 'Completed' 
-  | 'Hiatus' 
-  | 'Cancelled';
+export enum PublicationStatus {
+  Ongoing = 'Ongoing',
+  Completed = 'Completed',
+  Hiatus = 'Hiatus',
+  Cancelled = 'Cancelled'
+}
 
-export type Theme = 
-  | 'Aliens' | 'Animals' | 'Cooking' | 'Demons' 
-  | 'Ghosts' | 'Mafia' | 'MartialArts' | 'Military' 
-  | 'Monsters' | 'Music' | 'PostApocalyptic' | 'Reincarnation' 
-  | 'School' | 'Supernatural' | 'Survival' | 'Urban' 
-  | 'Zombies';
+export enum Theme {
+  Aliens = 'Aliens',
+  Animals = 'Animals',
+  Cooking = 'Cooking',
+  Demons = 'Demons',
+  Ghosts = 'Ghosts',
+  Mafia = 'Mafia',
+  MartialArts = 'Martial Arts',
+  Military = 'Military',
+  Monsters = 'Monsters',
+  Music = 'Music',
+  PostApocalyptic = 'Post Apocalyptic',
+  Reincarnation = 'Reincarnation',
+  School = 'School',
+  Supernatural = 'Supernatural',
+  Survival = 'Survival',
+  Urban = 'Urban',
+  Zombies = 'Zombies'
+}
 
-export type Genre = 
-  | 'Action' | 'Adventure' | 'Comedy' | 'Crime' 
-  | 'Cyberpunk' | 'Drama' | 'Fantasy' | 'Historical' 
-  | 'Horror' | 'Isekai' | 'Mystery' | 'Philosophical' 
-  | 'Psychological' | 'Romance' | 'ScienceFiction' | 'Seinen' 
-  | 'Shonen' | 'Shojo' | 'Superhero' | 'SliceOfLife' 
-  | 'Sports' | 'Thriller' | 'Tragedy' | 'Western';
+export enum Genre {
+  Action = 'Action',
+  Adventure = 'Adventure',
+  Comedy = 'Comedy',
+  Crime = 'Crime',
+  Cyberpunk = 'Cyberpunk',
+  Drama = 'Drama',
+  Fantasy = 'Fantasy',
+  Historical = 'Historical',
+  Horror = 'Horror',
+  Isekai = 'Isekai',
+  Mystery = 'Mystery',
+  Philosophical = 'Philosophical',
+  Psychological = 'Psychological',
+  Romance = 'Romance',
+  ScienceFiction = 'Science Fiction',
+  Seinen = 'Seinen',
+  Shonen = 'Shonen',
+  Shojo = 'Shojo',
+  Superhero = 'Superhero',
+  SliceOfLife = 'Slice of Life',
+  Sports = 'Sports',
+  Thriller = 'Thriller',
+  Tragedy = 'Tragedy',
+  Western = 'Western'
+}

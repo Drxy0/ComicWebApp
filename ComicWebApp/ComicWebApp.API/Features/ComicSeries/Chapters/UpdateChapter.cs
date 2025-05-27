@@ -18,7 +18,7 @@ public class UpdateChapter
         {
             app.MapPut("chapter/{id:guid}", Handler)
                 .DisableAntiforgery()
-                .WithTags("Chapters");
+                .WithTags(Tags.Chapters);
         }
     }
 

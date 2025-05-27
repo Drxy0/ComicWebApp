@@ -1,40 +1,40 @@
 <div class="grid-container">
     <img class="cover-image" alt="Comic series cover image" [src]="this.coverImageUrl"/>
     <div class="heading">
-        <h1 class="title">{{ this.metadata.title }}</h1>
+        <h1 class="title">{{ this.comicData.metadata.title }}</h1>
         <div class="publication-status publication-status--ongoing">
-            {{ this.metadata.publicationStatus }}
+            {{ this.comicData.metadata.publicationStatus }}
         </div>
     </div>
 <div class="authors">
-    @if(this.metadata.author) {
-        <span>{{ 'AUTHORS.AUTHOR' | translate }}: {{ this.metadata.author }}</span>
+    @if(this.comicData.metadata.author) {
+        <span>{{ 'AUTHORS.AUTHOR' | translate }}: {{ this.comicData.metadata.author }}</span>
     }
-    @if(this.metadata.artist) {
-        <span>{{ 'AUTHORS.ARTIST' | translate }}: {{ this.metadata.artist }}</span>
+    @if(this.comicData.metadata.artist) {
+        <span>{{ 'AUTHORS.ARTIST' | translate }}: {{ this.comicData.metadata.artist }}</span>
     }
-    @if(this.metadata.writer) {
-        <span>{{ 'AUTHORS.WRITER' | translate }}: {{ this.metadata.writer }}</span>
+    @if(this.comicData.metadata.writer) {
+        <span>{{ 'AUTHORS.WRITER' | translate }}: {{ this.comicData.metadata.writer }}</span>
     }
-    @if(this.metadata.penciler) {
-        <span>{{ 'AUTHORS.PENCILER' | translate }}: {{ this.metadata.penciler }}</span>
+    @if(this.comicData.metadata.penciler) {
+        <span>{{ 'AUTHORS.PENCILER' | translate }}: {{ this.comicData.metadata.penciler }}</span>
     }
-    @if(this.metadata.inker) {
-        <span>{{ 'AUTHORS.INKER' | translate }}: {{ this.metadata.inker }}</span>
+    @if(this.comicData.metadata.inker) {
+        <span>{{ 'AUTHORS.INKER' | translate }}: {{ this.comicData.metadata.inker }}</span>
     }
-    @if(this.metadata.colorist) {
-        <span>{{ 'AUTHORS.COLORIST' | translate }}: {{ this.metadata.colorist }}</span>
+    @if(this.comicData.metadata.colorist) {
+        <span>{{ 'AUTHORS.COLORIST' | translate }}: {{ this.comicData.metadata.colorist }}</span>
     }
 </div>
     <div class="stats">Stats</div>
     <div class="user-commands">User commands</div>
     <div class="genres">
-        @for(genre of this.metadata.genres; track genre) {
+        @for(genre of this.comicData.metadata.genres; track genre) {
             <div class="genre-item">{{ genre }}</div>
         }
-        @for(theme of this.metadata.themes; track theme) {
+        @for(theme of this.comicData.metadata.themes; track theme) {
             <div class="genre-item">{{ theme }}</div>
         }
     </div>
-    <div class="description">{{ this.metadata.description }}</div>
+    <div class="description">{{ this.comicData.metadata.description }}</div>
 </div>

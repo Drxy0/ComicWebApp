@@ -18,7 +18,7 @@ public class CreatePage
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPost("/page", Handler)
-                .WithTags("Pages");
+                .WithTags(Tags.Pages);
         }
     }
 

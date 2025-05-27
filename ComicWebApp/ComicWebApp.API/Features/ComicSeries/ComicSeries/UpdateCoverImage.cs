@@ -12,8 +12,7 @@ public class UpdateCoverImage
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPost("comic-series/{id:guid}/cover-image", Handler)
-                .DisableAntiforgery()
-                .WithTags("Comic Series");
+                .WithTags(Tags.ComicSeries);
         }
     }
     public static async Task<IResult> Handler(AppDbContext context, IFormFile coverImage, Guid id, IWebHostEnvironment env)

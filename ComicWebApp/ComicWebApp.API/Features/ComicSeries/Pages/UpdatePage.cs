@@ -15,7 +15,7 @@ public class UpdatePage
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPut("page/{id:guid}", Handler)
-                .WithTags("Pages");
+                .WithTags(Tags.Pages);
         }
     }
 

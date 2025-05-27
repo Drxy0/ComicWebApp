@@ -30,7 +30,7 @@ public static class CreateComicSeries
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapPost("comic-series/create", Handler)
-                .WithTags("Comic Series");
+                .WithTags(Tags.ComicSeries);
         }
     }
 
@@ -52,7 +52,6 @@ public static class CreateComicSeries
             Genres = request.Genres ?? new List<Genre>(),
             Themes = request.Themes ?? new List<Theme>()
         };
-
 
         ComicSeriesModel comicSeries = new ComicSeriesModel
         {
@@ -90,7 +89,6 @@ public static class CreateComicSeries
         try
         {
             await context.SaveChangesAsync();
-
         }
         catch
         {

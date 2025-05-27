@@ -16,7 +16,7 @@ public class GetComicSeries
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapGet("comic-series/{id:guid}", Handler)
-                .WithTags("Comic Series");
+                .WithTags(Tags.ComicSeries);
         }
     }
 

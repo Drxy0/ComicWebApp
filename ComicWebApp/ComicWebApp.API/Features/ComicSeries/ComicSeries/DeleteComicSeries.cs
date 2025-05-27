@@ -11,7 +11,7 @@ public class DeleteComicSeries
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapDelete("comic-series/{id:guid}", Handler)
-                .WithTags("Comic Series");
+                .WithTags(Tags.ComicSeries);
         }
     }
 

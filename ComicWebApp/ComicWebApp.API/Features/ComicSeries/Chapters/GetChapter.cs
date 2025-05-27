@@ -14,7 +14,7 @@ public class GetChapter
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapGet("chapter/{id:guid}", Handler)
-                .WithTags("Chapters");
+                .WithTags(Tags.Chapters);
         }
     }
 

@@ -19,7 +19,7 @@ public class CreateChapter
         {
             app.MapPost("chapter", Handler)
                 .DisableAntiforgery()
-                .WithTags("Chapters");
+                .WithTags(Tags.Chapters);
         }
     }
 

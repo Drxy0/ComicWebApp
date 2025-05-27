@@ -36,19 +36,19 @@
     }
 
     .publication-status--ongoing {
-        background-color: rgb(0, 149, 0);
+        background-color: var(--clr-green);
     }
 
     .publication-status--hiatus {
-        background-color: #F9A620;
+        background-color: var(--clr-orange-light);
     }
 
     .publication-status--completed {
-        background-color: #2E86AB;
+        background-color: var(--clr-blue-dark);
     }
 
     .publication-status--cancelled {
-        background-color: #AD343E;
+        background-color: var(--clr-red);
     }
 
     .authors {

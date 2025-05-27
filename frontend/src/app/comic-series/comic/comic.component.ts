@@ -6,7 +6,7 @@ import { ComicMetadata } from '../../models/comic-series/comic-metadata.model';
 import { ComicStats } from '../../models/comic-series/comic-stats.model';
 import { ComicChapter } from '../../models/comic-series/comic-chapter.model';
 import { TranslatePipe } from '@ngx-translate/core';
-import { catchError, of, Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { catchError, of, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-comic',
@@ -15,10 +15,9 @@ import { catchError, of, Subject, switchMap, takeUntil, tap } from 'rxjs';
   styleUrl: './comic.component.scss'
 })
 export class ComicComponent implements OnDestroy {
-  metadata!: ComicMetadata;
-  stats!: ComicStats;
-  chapters: ComicChapter[] = [];
+  comicData!: ComicSeriesResponse;
   coverImageUrl: string | null = null;
+  getComicData$!: Subscription;
   
   private destroy$ = new Subject<void>();
   private defaultCoverImage = 'assets/default-cover.webp';
@@ -27,42 +26,32 @@ export class ComicComponent implements OnDestroy {
     private route: ActivatedRoute,
     private comicService: ComicService
   ) {
-    this.loadComicData();
-  }
-
-  ngOnDestroy(): void {
-    this.cleanUpCoverImageUrl();
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
-  private loadComicData(): void {
-    this.route.params.pipe(
+    this.getComicData$ = this.route.params.pipe(
       switchMap(params => {
-        const id = params['id'];
-        return this.comicService.getComicSeries(id).pipe(
+        return this.comicService.getComicSeries(params['id']).pipe(
           tap((data: ComicSeriesResponse) => {
-            this.metadata = data.metadata;
-            this.stats = data.stats ?? {} as ComicStats;
-            this.chapters = data.chapters ?? [];
+            this.comicData = data;
           }),
-          switchMap(() => this.loadCoverImage(id)),
+          switchMap(() => this.loadCoverImage(params['id'])),
           catchError(err => {
             console.error('Error loading comic series:', err);
             return of(null);
           })
         );
-      }),
-      takeUntil(this.destroy$)
-    ).subscribe({
-      next: (imageBlob: Blob | null) => {
-        this.handleCoverImage(imageBlob);
-      },
-      error: (err) => {
-        console.error('Overall error:', err);
-        this.setDefaultCoverImage();
-      }
-    });
+      })
+      ).subscribe({
+        next: (imageBlob: Blob | null) => {
+          this.handleCoverImage(imageBlob);
+        },
+        error: (err) => {
+          console.error('Overall error:', err);
+          this.setDefaultCoverImage();
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.cleanUpCoverImageUrl();
   }
 
   private loadCoverImage(id: string) {

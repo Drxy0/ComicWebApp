@@ -13,7 +13,7 @@ public class GetCoverImage
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
             app.MapGet("comic-series/{id:guid}/cover-image", Handler)
-                .WithTags("Comic Series");
+                .WithTags(Tags.ComicSeries);
         }
     }
     public static async Task<IResult> Handler([FromRoute] Guid id, AppDbContext context, IWebHostEnvironment env)
