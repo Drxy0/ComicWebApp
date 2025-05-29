@@ -10,11 +10,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  private destroyRef = inject(DestroyRef);
   private authService = inject(AuthService);
-  emailLabel = "Email";
-  passwordLabel = "Password";
-  loginBtnText = "Log in";
   
   form = new FormGroup({
     email: new FormControl('', {

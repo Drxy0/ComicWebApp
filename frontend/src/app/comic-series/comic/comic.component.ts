@@ -20,6 +20,7 @@ export class ComicComponent implements OnDestroy {
   comicData!: ComicSeriesResponse;
   coverImageUrl: string = this.defaultCoverImage;
   getComicData$!: Subscription;
+  chaptersSortOrder: 'asc' | 'desc' = 'asc';
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +44,7 @@ export class ComicComponent implements OnDestroy {
         return this.comicService.getComicSeries(params['id']).pipe(
           tap((data: ComicSeriesResponse) => {
             this.comicData = data;
-            console.log(this.comicData.stats);
+            this.sortChapters();
           }),
           switchMap(() => this.loadCoverImage(params['id'])),
           catchError(err => {
@@ -95,4 +96,18 @@ export class ComicComponent implements OnDestroy {
       URL.revokeObjectURL(this.coverImageUrl);
     }
   }
+
+sortChapters() {
+  if (this.comicData?.chapters) {
+    this.comicData.chapters.sort((a, b) => {
+      if (this.chaptersSortOrder === 'asc') {
+        return a.number - b.number;
+      } else {
+        return b.number - a.number;
+      }
+    });
+    
+    this.chaptersSortOrder = this.chaptersSortOrder === 'asc' ? 'desc' : 'asc';
+  }
+}
 }

@@ -73,5 +73,15 @@
     "SURVIVAL": "Survival",
     "URBAN": "Urban",
     "ZOMBIES": "Zombies"
+  },
+  "COMIC_STATS": {
+    "RATING": "Average rating",
+    "READERS": "Number of readers",
+    "REVIEW_COUNT": "Number of reviews",
+    "DROP_RATE": "Drop rate"
+  },
+  "CHAPTER_SORT": {
+    "ASC": "▲ Ascending",
+    "DESC": "▼ Descending"
   }
 }

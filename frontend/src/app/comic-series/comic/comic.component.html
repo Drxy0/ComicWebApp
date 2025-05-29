@@ -27,21 +27,21 @@
     }
 </div>
     <div class="stats">
-        <div class="stats-item">
-        <span class="stats-item__rating material-symbols-rounded">star</span>
-            <span>{{ this.comicData.stats?.rating }}</span>
+        <div class="stats-item" title="{{'COMIC_STATS.RATING' | translate}}">
+            <span class="stats-item__rating material-symbols-rounded">star</span>
+            <span title="{{ this.comicData.stats?.rating }}">{{ this.comicData.stats?.rating }}</span>
         </div>
-        <div class="stats-item">
+        <div class="stats-item" title="{{'COMIC_STATS.READERS' | translate}}">
             <span class="stats-item__number-of-readers material-symbols-rounded">bookmark</span>
-            <span>{{ this.comicData.stats?.numberOfReaders }}</span>
+            <span title="{{ this.comicData.stats?.numberOfReaders }}">{{ this.comicData.stats?.numberOfReaders }}</span>
         </div>
-        <div class="stats-item">
+        <div class="stats-item" title="{{'COMIC_STATS.REVIEW_COUNT' | translate}}">
             <span class="stats-item__review-count material-symbols-rounded">edit_note</span>
-            <span>{{ this.comicData.stats?.reviewCount }}</span>
+            <span title="{{ this.comicData.stats?.reviewCount }}">{{ this.comicData.stats?.reviewCount }}</span>
         </div>
-        <div class="stats-item">
+        <div class="stats-item" title="{{'COMIC_STATS.DROP_RATE' | translate}}">
             <span class="stats-item__drop-rate material-symbols-rounded">close</span>
-            <span>{{ this.comicData.stats?.dropRate }}%</span>
+            <span title="{{ this.comicData.stats?.dropRate }}%">{{ this.comicData.stats?.dropRate }}%</span>
         </div>
     </div>
     <div class="user-commands">User commands</div>
@@ -54,16 +54,17 @@
         }
     </div>
     <div class="description">{{ this.comicData.metadata.description }}</div>
-</div>
-<div class="chapters-list">
-    @for (chapter of this.comicData.chapters; track chapter) {
-        <div class="chapter-item">
-            @if(chapter.language | languageFlag; as flagInfo) {
-                <img [src]="flagInfo.src" [title]="flagInfo.title" [alt]="flagInfo.alt" width="24"/>
-            }
-            <span>{{chapter.id}}</span>
-            <span>{{chapter.title}}</span>
-            <span>{{chapter.number}}</span>
-        </div>
-    }
+    <div class="chapters-list">
+        <button class="sort-btn" (click)="sortChapters()" title="Sort order">
+            {{ 'CHAPTER_SORT.' + (chaptersSortOrder === 'asc' ? 'DESC' : 'ASC') | translate }}
+        </button>
+        @for (chapter of this.comicData.chapters; track chapter.number) {
+            <div class="chapter-item">
+                @if(chapter.language | languageFlag; as flagInfo) {
+                    <img [src]="flagInfo.src" [title]="flagInfo.title" [alt]="flagInfo.alt" width="24"/>
+                }
+                <span>Ch. {{chapter.number}} - {{chapter.title}}</span>
+            </div>
+        }
+    </div>
 </div>
