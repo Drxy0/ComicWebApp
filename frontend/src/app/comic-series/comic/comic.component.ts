@@ -6,10 +6,11 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { catchError, of, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
 import { ComicStats } from '../../models/comic-series/comic-stats.model';
 import { PublicationStatus } from '../../models/enums/comic-metadata.enum';
+import { LanguageFlagPipe } from '../../core/pipes/language-flag.pipe';
 
 @Component({
   selector: 'app-comic',
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, LanguageFlagPipe],
   templateUrl: './comic.component.html',
   styleUrl: './comic.component.scss'
 })
@@ -28,12 +29,11 @@ export class ComicComponent implements OnDestroy {
       id: '',
       isVerified: false,
       metadata: {
-        title: 'Loading...', // Default values
+        title: 'Loading...',
         publicationStatus: PublicationStatus.Ongoing,
         genres: [],
         themes: [],
         description: ''
-        // other properties
       },
       stats: {} as ComicStats,
       chapters: []

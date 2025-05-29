@@ -44,6 +44,7 @@ public class GetComicSeries
             .Select(ch => new ChapterResponse(
                 ch.Title,
                 ch.Number,
+                ch.Language,
                 ch.Id,
                 ch.SeriesId,
                 ch.Pages?

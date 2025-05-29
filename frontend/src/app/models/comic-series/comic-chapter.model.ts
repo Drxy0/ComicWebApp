@@ -1,8 +1,9 @@
 export interface ComicChapter {
-  title?: string;
-  number: number;
   id: string;
   seriesId: string;
+  title?: string;
+  number: number;
+  language: string;
   pages: ChapterFile[];
 }
 

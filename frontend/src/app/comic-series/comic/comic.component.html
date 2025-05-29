@@ -55,3 +55,15 @@
     </div>
     <div class="description">{{ this.comicData.metadata.description }}</div>
 </div>
+<div class="chapters-list">
+    @for (chapter of this.comicData.chapters; track chapter) {
+        <div class="chapter-item">
+            @if(chapter.language | languageFlag; as flagInfo) {
+                <img [src]="flagInfo.src" [title]="flagInfo.title" [alt]="flagInfo.alt" width="24"/>
+            }
+            <span>{{chapter.id}}</span>
+            <span>{{chapter.title}}</span>
+            <span>{{chapter.number}}</span>
+        </div>
+    }
+</div>

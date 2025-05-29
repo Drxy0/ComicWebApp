@@ -40,7 +40,7 @@ public class GetPage
         // not every time client calls getPage (save multiple copies for multiple compression rates)
         try
         {
-            MemoryStream? memoryStream = await WebpConverter.ConvertToWebpAsync(imagePath, 70)!;
+            MemoryStream? memoryStream = await WebpConverter.ConvertToWebpAsync(imagePath, 70, 0.5f)!;
 
             if (memoryStream is null)
             {
