@@ -83,5 +83,6 @@
   "CHAPTER_SORT": {
     "ASC": "▲ Ascending",
     "DESC": "▼ Descending"
-  }
+  },
+  "LOADING": "Loading..."
 }

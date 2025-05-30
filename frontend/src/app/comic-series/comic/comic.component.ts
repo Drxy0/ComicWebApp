@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComicService } from '../../services/comic.service';
 import { ComicSeriesResponse } from '../../models/comic-series/comic-series-response.model';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { catchError, of, Subject, Subscription, switchMap, takeUntil, tap } from 'rxjs';
 import { ComicStats } from '../../models/comic-series/comic-stats.model';
 import { PublicationStatus } from '../../models/enums/comic-metadata.enum';
@@ -24,13 +24,14 @@ export class ComicComponent implements OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private comicService: ComicService
+    private comicService: ComicService,
+    private translate: TranslateService
   ) {
     this.comicData = {
       id: '',
       isVerified: false,
       metadata: {
-        title: 'Loading...',
+        title: this.translate.instant('LOADING'),
         publicationStatus: PublicationStatus.Ongoing,
         genres: [],
         themes: [],
