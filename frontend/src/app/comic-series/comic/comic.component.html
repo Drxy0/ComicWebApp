@@ -1,0 +1,70 @@
+<div class="grid-container">
+    <img class="cover-image" alt="Comic series cover image" [src]="this.coverImageUrl"/>
+    <div class="heading">
+        <h1 class="title">{{ this.comicData.metadata.title }}</h1>
+        <div class="publication-status publication-status--ongoing">
+            {{ this.comicData.metadata.publicationStatus }}
+        </div>
+    </div>
+<div class="authors">
+    @if(this.comicData.metadata.author) {
+        <span>{{ 'AUTHORS.AUTHOR' | translate }}: {{ this.comicData.metadata.author }}</span>
+    }
+    @if(this.comicData.metadata.artist) {
+        <span>{{ 'AUTHORS.ARTIST' | translate }}: {{ this.comicData.metadata.artist }}</span>
+    }
+    @if(this.comicData.metadata.writer) {
+        <span>{{ 'AUTHORS.WRITER' | translate }}: {{ this.comicData.metadata.writer }}</span>
+    }
+    @if(this.comicData.metadata.penciler) {
+        <span>{{ 'AUTHORS.PENCILER' | translate }}: {{ this.comicData.metadata.penciler }}</span>
+    }
+    @if(this.comicData.metadata.inker) {
+        <span>{{ 'AUTHORS.INKER' | translate }}: {{ this.comicData.metadata.inker }}</span>
+    }
+    @if(this.comicData.metadata.colorist) {
+        <span>{{ 'AUTHORS.COLORIST' | translate }}: {{ this.comicData.metadata.colorist }}</span>
+    }
+</div>
+    <div class="stats">
+        <div class="stats-item" title="{{'COMIC_STATS.RATING' | translate}}">
+            <span class="stats-item__rating material-symbols-rounded">star</span>
+            <span title="{{ this.comicData.stats?.rating }}">{{ this.comicData.stats?.rating }}</span>
+        </div>
+        <div class="stats-item" title="{{'COMIC_STATS.READERS' | translate}}">
+            <span class="stats-item__number-of-readers material-symbols-rounded">bookmark</span>
+            <span title="{{ this.comicData.stats?.numberOfReaders }}">{{ this.comicData.stats?.numberOfReaders }}</span>
+        </div>
+        <div class="stats-item" title="{{'COMIC_STATS.REVIEW_COUNT' | translate}}">
+            <span class="stats-item__review-count material-symbols-rounded">edit_note</span>
+            <span title="{{ this.comicData.stats?.reviewCount }}">{{ this.comicData.stats?.reviewCount }}</span>
+        </div>
+        <div class="stats-item" title="{{'COMIC_STATS.DROP_RATE' | translate}}">
+            <span class="stats-item__drop-rate material-symbols-rounded">close</span>
+            <span title="{{ this.comicData.stats?.dropRate }}%">{{ this.comicData.stats?.dropRate }}%</span>
+        </div>
+    </div>
+    <div class="user-commands">User commands</div>
+    <div class="genres">
+        @for(genre of this.comicData.metadata.genres; track genre) {
+            <div class="genre-item">{{ genre }}</div>
+        }
+        @for(theme of this.comicData.metadata.themes; track theme) {
+            <div class="genre-item">{{ theme }}</div>
+        }
+    </div>
+    <div class="description">{{ this.comicData.metadata.description }}</div>
+    <div class="chapters-list">
+        <button class="sort-btn" (click)="sortChapters()" title="Sort order">
+            {{ 'CHAPTER_SORT.' + (chaptersSortOrder === 'asc' ? 'DESC' : 'ASC') | translate }}
+        </button>
+        @for (chapter of this.comicData.chapters; track chapter.number) {
+            <div class="chapter-item">
+                @if(chapter.language | languageFlag; as flagInfo) {
+                    <img [src]="flagInfo.src" [title]="flagInfo.title" [alt]="flagInfo.alt" width="24"/>
+                }
+                <span>Ch. {{chapter.number}} - {{chapter.title}}</span>
+            </div>
+        }
+    </div>
+</div>

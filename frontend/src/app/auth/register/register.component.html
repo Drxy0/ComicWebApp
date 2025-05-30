@@ -1,22 +1,47 @@
-<h2>Register</h2>
+<h2>{{ 'AUTH.REGISTER' | translate }}</h2>
 <form [formGroup]="form" (ngSubmit)="onRegister()">
-    <div>
-        <label for="username">Username</label>
-        <input id="username" type="text" formControlName="username"/>
-    </div>
-    <div>
-        <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email"/>
-    </div>
-    <div formGroupName="passwords">
-        <div>
-            <label for="password">Password</label>
-            <input id="password" type="password" formControlName="password"/>
-        </div>
-        <div>
-            <label for="confirm-password">Confirm Password</label>
-            <input id="confirm-password" type="password" formControlName="confirmPassword"/>
-        </div>
-    </div>
-    <button>Register</button>
+  <div>
+    <label for="username">{{ 'AUTH.USERNAME' | translate }}</label>
+    <input id="username" type="text" formControlName="username"/>
+
+    @if (form.get('username')?.hasError('required')) {
+      <span class="span-required">{{ 'AUTH.REQUIRED' | translate }}</span>
+    }
+  </div>
+  <div>
+    <label for="email">{{ 'AUTH.EMAIL' | translate }}</label>
+    <input id="email" type="email" formControlName="email"/>
+
+    @if (form.get('email')?.hasError('required')) {
+      <span class="span-required">{{ 'AUTH.REQUIRED' | translate }}</span>
+    }
+
+    @if (form.get('email')?.hasError('email')) {
+       <span class="span-required">{{ 'AUTH.EMAIL_NOT_VALID_ERROR' | translate }}</span>
+    }
+  </div>
+  <div>
+    <label for="password">{{ 'AUTH.PASSWORD' | translate }}</label>
+    <input id="password" type="password" formControlName="password"/>
+
+    @if (form.get('password')?.hasError('required')) {
+      <span class="span-required">{{ 'AUTH.REQUIRED' | translate }}</span>
+    }
+
+    @if (form.get('password')?.hasError('minlength')) {
+      <div>{{ 'AUTH.PASSWORD_MIN_LENGTH_ERROR' | translate }}</div>
+    }
+  </div>
+  <div>
+    <label for="confirm-password">{{ 'AUTH.CONFIRM_PASSWORD' | translate }}</label>
+    <input id="confirm-password" type="password" formControlName="confirmPassword"/>
+
+    @if (form.get('confirmPassword')?.hasError('required')) {
+      <span class="span-required">{{ 'AUTH.REQUIRED' | translate }}</span>
+    }
+  </div>
+
+  <div class="w-fit">
+    <button [disabled]="form.invalid || form.pristine">{{ 'AUTH.REGISTER' | translate }}</button>
+  </div>
 </form>

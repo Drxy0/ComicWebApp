@@ -1,0 +1,88 @@
+{
+  "AUTH": {
+    "LOGIN": "Login",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "LOG_IN": "Log in",
+    "REGISTER": "Register",
+    "USERNAME": "Username",
+    "CONFIRM_PASSWORD": "Confirm password",
+  
+    "REQUIRED": "Field is required",
+    "EMAIL_NOT_VALID_ERROR": "Email is not valid",
+    "PASSWORD_REQUIRED_ERROR": "Password is required",
+    "PASSWORD_NOT_VALID_ERROR": "Password is not valid",
+    "PASSWORD_MIN_LENGTH_ERROR": "Password must be at least 8 characters long",
+    "PASSWORD_DO_NOT_MATCH_ERROR": "Passwords do not match"
+  },
+  "AUTHORS": {
+    "AUTHOR": "Author",
+    "ARTIST": "Artist",
+    "WRITER": "Writer",
+    "PENCILER": "Penciler",
+    "INKER": "Inker",
+    "COLORIST": "Colorist"
+  },
+  "PUBLICATION_STATUS": {
+    "ONGOING": "Ongoing",
+    "COMPLETED": "Completed",
+    "HIATUS": "Hiatus",
+    "CANCELLED": "Cancelled"
+  },
+  "GENRES": {
+    "ACTION": "Action",
+    "ADVENTURE": "Adventure",
+    "COMEDY": "Comedy",
+    "CRIME": "Crime",
+    "CYBERPUNK": "Cyberpunk",
+    "DRAMA": "Drama",
+    "FANTASY": "Fantasy",
+    "HISTORICAL": "Historical",
+    "HORROR": "Horror",
+    "ISEKAI": "Isekai",
+    "MYSTERY": "Mystery",
+    "PHILOSOPHICAL": "Philosophical",
+    "PSYCHOLOGICAL": "Psychological",
+    "ROMANCE": "Romance",
+    "SCIENCE_FICTION": "Science Fiction",
+    "SEINEN": "Seinen",
+    "SHONEN": "Shonen",
+    "SHOJO": "Shojo",
+    "SUPERHERO": "Superhero",
+    "SLICE_OF_LIFE": "Slice of Life",
+    "SPORTS": "Sports",
+    "THRILLER": "Thriller",
+    "TRAGEDY": "Tragedy",
+    "WESTERN": "Western"
+  },
+  "THEMES": {
+    "ALIENS": "Aliens",
+    "ANIMALS": "Animals",
+    "COOKING": "Cooking",
+    "DEMONS": "Demons",
+    "GHOSTS": "Ghosts",
+    "MAFIA": "Mafia",
+    "MARTIAL_ARTS": "Martial Arts",
+    "MILITARY": "Military",
+    "MONSTERS": "Monsters",
+    "MUSIC": "Music",
+    "POST_APOCALYPTIC": "Post Apocalyptic",
+    "REINCARNATION": "Reincarnation",
+    "SCHOOL": "School",
+    "SUPERNATURAL": "Supernatural",
+    "SURVIVAL": "Survival",
+    "URBAN": "Urban",
+    "ZOMBIES": "Zombies"
+  },
+  "COMIC_STATS": {
+    "RATING": "Average rating",
+    "READERS": "Number of readers",
+    "REVIEW_COUNT": "Number of reviews",
+    "DROP_RATE": "Drop rate"
+  },
+  "CHAPTER_SORT": {
+    "ASC": "▲ Ascending",
+    "DESC": "▼ Descending"
+  },
+  "LOADING": "Loading..."
+}
