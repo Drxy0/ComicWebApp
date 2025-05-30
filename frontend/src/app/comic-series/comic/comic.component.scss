@@ -10,7 +10,8 @@
                          "image authors authors"
                          "image stats   user"
                          "image genres  genres"
-                         "desc  desc    desc";
+                         "desc  desc    desc"
+                         "ch    ch      ch";
 
     .cover-image {
         grid-area: image;
@@ -117,5 +118,37 @@
         text-transform: uppercase;
         font-size: var(--font-size-sm);
         font-weight: 500;
+    }
+}
+
+.chapters-list {
+    grid-area: ch;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    .chapter-item {
+        display: flex;
+        flex-direction: row;
+        padding-block: 0.1rem;
+        background-color: var(--background-dark);
+        font-weight: 500;
+        cursor: pointer;
+
+        img {
+            margin-inline: 1rem;
+            cursor: default;
+        }
+    }
+    .sort-btn {
+        width: fit-content;
+        background-color: var(--background-dark);
+        border: 0;
+        color: var(--text-main);
+        font-size: 0.875rem;
+        padding: 0.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-radius: 6px;
+        cursor: pointer;
     }
 }

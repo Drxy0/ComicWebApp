@@ -11,7 +11,7 @@ namespace ComicWebApp.API.Features.ComicSeries.Chapters;
 public class CreateChapter
 {
     public record RequestPage(int PageNumber, IFormFile ImageFile);
-    public record Request(Guid SeriesId, string? Title, float Number, List<RequestPage> Pages);
+    public record Request(Guid SeriesId, string? Title, float Number, string Language, List<RequestPage> Pages);
 
     public class Endpoint : IEndpoint
     {
@@ -42,6 +42,7 @@ public class CreateChapter
         {
             Title = request.Title,
             Number = request.Number,
+            Language = request.Language,
             SeriesId = request.SeriesId,
             Pages = new List<ComicPage>()
         };

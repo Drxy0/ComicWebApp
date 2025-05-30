@@ -14,5 +14,7 @@ internal class ComicChapterMapping : IEntityTypeConfiguration<ComicChapter>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(c => c.SeriesId);
+
+        builder.Property(c => c.Language).HasMaxLength(2);
     }
 }
