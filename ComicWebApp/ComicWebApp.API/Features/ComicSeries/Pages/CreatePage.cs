@@ -11,27 +11,28 @@ namespace ComicWebApp.API.Features.ComicSeries.Pages;
 
 public class CreatePage
 {
-    public record Request(Guid ChapterId, int PageNumber, IFormFile ImageFile);
+    public record Request(IFormFile ImageFile);
 
     public class Endpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("/page", Handler)
-                .WithTags(Tags.Pages);
+            app.MapPost("comic/{chapterId:guid}/{pageNumber:int}", Handler)
+               .WithTags(Tags.Pages);
         }
     }
 
-    public static async Task<IResult> Handler([FromForm] Request request, AppDbContext context, IWebHostEnvironment env)
+    public static async Task<IResult> Handler([FromRoute] Guid chapterId, [FromRoute] int pageNumber, [FromForm] Request request, 
+        AppDbContext context, IWebHostEnvironment env)
     {
         ComicChapter? chapter = await context.ComicChapters
             .Include(c => c.Pages)
             .Include(c => c.Series)
-            .FirstOrDefaultAsync(c => c.Id == request.ChapterId);
+            .FirstOrDefaultAsync(c => c.Id == chapterId);
 
         if (chapter is null)
         {
-            return Results.NotFound($"Chapter with Id {request.ChapterId} not found");
+            return Results.NotFound($"Chapter with Id {chapterId} not found");
         }
 
         string relativePath = Path.Combine(
@@ -41,13 +42,13 @@ public class CreatePage
         );
 
         string uploadsPath = Path.Combine(env.WebRootPath, relativePath);
-        string fileName = ComicPathHelper.GetChapterFileName(request.PageNumber, request.ImageFile);
+        string fileName = ComicPathHelper.GetChapterFileName(pageNumber, request.ImageFile);
         string imageUrl = ComicPathHelper.GetRelativeImageUrl(relativePath, fileName);
         
         string absoluteFilePath = Path.Combine(env.WebRootPath, imageUrl);
 
         ComicPage? pageToReturn = null;
-        ComicPage? existingPage = chapter.Pages.Find(p => p.PageNumber == request.PageNumber);
+        ComicPage? existingPage = chapter.Pages.Find(p => p.PageNumber == pageNumber);
         if (existingPage is not null)
         {
             string oldFilePath = Path.Combine(env.WebRootPath, existingPage.ImageUrl.TrimStart('/'));
@@ -63,9 +64,8 @@ public class CreatePage
         {
             ComicPage newPage = new ComicPage
             {
-                Id = Guid.NewGuid(),
-                ChapterId = request.ChapterId,
-                PageNumber = request.PageNumber,
+                ChapterId = chapterId,
+                PageNumber = pageNumber,
                 ImageUrl = imageUrl
             };
 
@@ -83,11 +83,11 @@ public class CreatePage
             await context.SaveChangesAsync();
 
             ComicPageResponse response = new ComicPageResponse(
-                pageToReturn.Id, pageToReturn.ChapterId,
+                pageToReturn.ChapterId,
                 pageToReturn.PageNumber, pageToReturn.ImageUrl
             );
 
-            return Results.Created($"page/{pageToReturn.Id}", response);
+            return Results.Created($"comic/{chapter.Id}/{pageToReturn.PageNumber}", response);
         }
         catch (Exception ex)
         {

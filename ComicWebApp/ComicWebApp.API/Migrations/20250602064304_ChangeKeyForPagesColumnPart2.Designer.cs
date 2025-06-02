@@ -3,17 +3,20 @@ using System;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ComicWebApp.API.Migrations
+namespace ComicWebApp.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250602064304_ChangeKeyForPagesColumnPart2")]
+    partial class ChangeKeyForPagesColumnPart2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,17 +54,21 @@ namespace ComicWebApp.API.Migrations
 
             modelBuilder.Entity("ComicWebApp.API.Features.ComicSeries.ComicSeriesModels.ComicPage", b =>
                 {
-                    b.Property<Guid>("ChapterId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<int>("PageNumber")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("ChapterId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("ChapterId", "PageNumber");
+                    b.Property<int>("PageNumber")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ChapterId");
 

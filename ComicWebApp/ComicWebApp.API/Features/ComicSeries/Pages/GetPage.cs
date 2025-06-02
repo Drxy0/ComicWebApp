@@ -2,6 +2,7 @@
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ComicWebApp.API.Features.ComicSeries.Pages;
 
@@ -12,18 +13,23 @@ public class GetPage
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("page/{id:guid}", Handler)
+            app.MapGet("comic/{chapterId:guid}/{pageNumber:int}", Handler)
                 .WithTags(Tags.Pages);
         }
     }
 
-    public static async Task<IResult> Handler([FromRoute] Guid id, AppDbContext context, IWebHostEnvironment env)
+    public static async Task<IResult> Handler([FromRoute] Guid chapterId, [FromRoute] int pageNumber, 
+        AppDbContext context, IWebHostEnvironment env)
     {
-        ComicPage? page = await context.ComicPages.FindAsync(id);
+        ComicPage? page = await context.ComicPages
+            .AsNoTracking()
+            .FirstOrDefaultAsync(p =>
+                p.ChapterId == chapterId &&
+                p.PageNumber == pageNumber);
 
         if (page is null)
         {
-            return Results.NotFound($"Page with Id {id} not found");
+            return Results.NotFound($"Page not found");
         }
 
         string imagePath = Path.Combine(

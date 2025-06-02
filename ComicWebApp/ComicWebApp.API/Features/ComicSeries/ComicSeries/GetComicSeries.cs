@@ -49,7 +49,7 @@ public class GetComicSeries
                 ch.SeriesId,
                 ch.Pages?
                     .OrderBy(p => p.PageNumber)
-                    .Select(p => new ChapterFilesResponse(p.Id, p.PageNumber))
+                    .Select(p => new ChapterFilesResponse(p.PageNumber))
                     .ToList() ?? new List<ChapterFilesResponse>()
             ))
             .ToList() ?? new List<ChapterResponse>();

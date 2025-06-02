@@ -13,17 +13,17 @@ public class DeletePage
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapDelete("page/{id:guid}", Handler)
+            app.MapDelete("comic/{chapterId:guid}/{pageNumber:int}", Handler)
                 .WithTags(Tags.Pages);
         }
     }
-    
-    public static async Task<IResult> Handler([FromRoute] Guid id, AppDbContext context, IWebHostEnvironment env)
+
+    public static async Task<IResult> Handler([FromRoute] Guid chapterId, [FromRoute] int pageNumber, AppDbContext context, IWebHostEnvironment env)
     {
-        ComicPage? page = await context.ComicPages.FindAsync(id);
+        ComicPage? page = await context.ComicPages.FindAsync(chapterId, pageNumber);
         if (page is null)
         {
-            return Results.NotFound($"Page with Id {id} not found");
+            return Results.NotFound($"Page not found");
         }
 
         string? basePath = Path.GetDirectoryName(Path.Combine(env.WebRootPath, page.ImageUrl.TrimStart('/')));

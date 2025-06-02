@@ -1,9 +1,8 @@
 ﻿using ComicWebApp.API.Abstractions;
-using System.Text.Json.Serialization;
 
 namespace ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 
-public class ComicPage : Entity
+public class ComicPage
 {
     public int PageNumber { get; set; }
     public string ImageUrl { get; set; }

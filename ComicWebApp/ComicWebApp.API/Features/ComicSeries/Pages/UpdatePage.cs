@@ -14,18 +14,18 @@ public class UpdatePage
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPut("page/{id:guid}", Handler)
+            app.MapGet("comic/{chapterId:guid}/{pageNumber:int}", Handler)
                 .WithTags(Tags.Pages);
         }
     }
 
-    public static async Task<IResult> Handler([FromRoute] Guid id, [FromForm] Request request, 
+    public static async Task<IResult> Handler([FromRoute] Guid chapterId, [FromRoute] int pageNumber, [FromForm] Request request, 
         AppDbContext context, IWebHostEnvironment env)
     {
-        ComicPage? page = await context.ComicPages.FindAsync(id);
+        ComicPage? page = await context.ComicPages.FindAsync(chapterId, pageNumber);
         if (page is null)
         {
-            return Results.NotFound($"Page with Id {id} not found");
+            return Results.NotFound($"Page not found");
         }
 
         string? basePath = Path.GetDirectoryName(Path.Combine(env.WebRootPath, page.ImageUrl.TrimStart('/')));
@@ -59,7 +59,7 @@ public class UpdatePage
             await context.SaveChangesAsync();
 
             ComicPageResponse response = new ComicPageResponse(
-                page.Id, page.ChapterId,
+                page.ChapterId,
                 page.PageNumber, page.ImageUrl
             );
 

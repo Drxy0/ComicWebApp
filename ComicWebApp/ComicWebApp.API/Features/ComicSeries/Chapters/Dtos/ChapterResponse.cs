@@ -2,7 +2,7 @@
 
 namespace ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 
-public record ChapterFilesResponse(Guid Id, int PageNumber);
+public record ChapterFilesResponse(int PageNumber);
 
 public record ChapterResponse(string? Title, float Number, string Language, Guid Id, Guid SeriesId, List<ChapterFilesResponse> Pages)
 {
@@ -15,7 +15,7 @@ public record ChapterResponse(string? Title, float Number, string Language, Guid
             chapter.SeriesId,
             chapter.Pages
                 .OrderBy(p => p.PageNumber)
-                .Select(p => new ChapterFilesResponse(p.Id, p.PageNumber))
+                .Select(p => new ChapterFilesResponse(p.PageNumber))
                 .ToList()
         )
     { 

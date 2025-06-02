@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ComicWebApp.API.Infrastructure.Data.Mappings;
-using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
+﻿using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Features.Users.UserModels;
+using ComicWebApp.API.Infrastructure.Data.Mappings;
+using Microsoft.EntityFrameworkCore;
 
 namespace ComicWebApp.API.Infrastructure.Data;
 
@@ -24,5 +24,6 @@ public class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new ComicChapterMapping());
         modelBuilder.ApplyConfiguration(new ComicSeriesMapping());
         modelBuilder.ApplyConfiguration(new RefreshTokenMapping());
+        modelBuilder.ApplyConfiguration(new ComicPageMapping());
     }
 }
