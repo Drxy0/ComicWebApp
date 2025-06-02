@@ -59,7 +59,7 @@
             {{ 'CHAPTER_SORT.' + (chaptersSortOrder === 'asc' ? 'DESC' : 'ASC') | translate }}
         </button>
         @for (chapter of this.comicData.chapters; track chapter.number) {
-            <div class="chapter-item">
+            <div class="chapter-item" (click)="navigateToChapter(chapter.id)">
                 @if(chapter.language | languageFlag; as flagInfo) {
                     <img [src]="flagInfo.src" [title]="flagInfo.title" [alt]="flagInfo.alt" width="24"/>
                 }

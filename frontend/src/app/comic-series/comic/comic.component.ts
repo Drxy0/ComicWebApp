@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ComicService } from '../../services/comic.service';
 import { ComicSeriesResponse } from '../../models/comic-series/comic-series-response.model';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
@@ -23,6 +23,7 @@ export class ComicComponent implements OnDestroy {
   chaptersSortOrder: 'asc' | 'desc' = 'asc';
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private comicService: ComicService,
     private translate: TranslateService
@@ -98,17 +99,24 @@ export class ComicComponent implements OnDestroy {
     }
   }
 
-sortChapters() {
-  if (this.comicData?.chapters) {
-    this.comicData.chapters.sort((a, b) => {
-      if (this.chaptersSortOrder === 'asc') {
-        return a.number - b.number;
-      } else {
-        return b.number - a.number;
-      }
-    });
-    
-    this.chaptersSortOrder = this.chaptersSortOrder === 'asc' ? 'desc' : 'asc';
+  sortChapters() {
+    if (this.comicData?.chapters) {
+      this.comicData.chapters.sort((a, b) => {
+        if (this.chaptersSortOrder === 'asc') {
+          return a.number - b.number;
+        } else {
+          return b.number - a.number;
+        }
+      });
+      
+      this.chaptersSortOrder = this.chaptersSortOrder === 'asc' ? 'desc' : 'asc';
+    }
   }
-}
+
+  navigateToChapter(chapterId: string) {
+    const chapter = this.comicData.chapters?.find(ch => ch.id === chapterId);
+    if (chapter) {
+      this.router.navigate([`/comic/${chapterId}/1`]);
+    }
+  }
 }

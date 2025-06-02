@@ -19,4 +19,10 @@ export class ComicService {
             responseType: 'blob'
         });
     }
+
+    getPage(chapterId: string, pageNumber: number) {
+        return this.http.get(`${this.apiPath}/comic/${chapterId}/${pageNumber}`, {
+            responseType: 'blob'
+        });
+    }
 }

@@ -47,10 +47,7 @@ public class GetComicSeries
                 ch.Language,
                 ch.Id,
                 ch.SeriesId,
-                ch.Pages?
-                    .OrderBy(p => p.PageNumber)
-                    .Select(p => new ChapterFilesResponse(p.PageNumber))
-                    .ToList() ?? new List<ChapterFilesResponse>()
+                ch.Pages.Count()
             ))
             .ToList() ?? new List<ChapterResponse>();
 

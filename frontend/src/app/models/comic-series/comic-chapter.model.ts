@@ -4,10 +4,5 @@ export interface ComicChapter {
   title?: string;
   number: number;
   language: string;
-  pages: ChapterFile[];
-}
-
-export interface ChapterFile {
-  id: string;
-  pageNumber: number;
+  pageCount: number;
 }
