@@ -20,9 +20,13 @@ export class ComicService {
         });
     }
 
-    getPage(chapterId: string, pageNumber: number) {
-        return this.http.get(`${this.apiPath}/comic/${chapterId}/${pageNumber}`, {
+    getPage(chapterId: string, pageNumber: number | string) {
+        return this.http.get(`${this.apiPath}/chapter/${chapterId}/${pageNumber}`, {
             responseType: 'blob'
         });
+    }
+    
+    getPageCount(chapterId: string) {
+        return this.http.get(`${this.apiPath}/chapter/${chapterId}/page-count`);
     }
 }

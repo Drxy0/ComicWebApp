@@ -44,12 +44,15 @@
         font-size: var(--font-size-sm);
         padding-inline: 1rem;
       }
+      .material-symbols-rounded {
+        cursor: pointer;
+      }
     }
 
     .settings-menu {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 

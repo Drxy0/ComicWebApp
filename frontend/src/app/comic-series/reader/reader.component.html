@@ -14,16 +14,22 @@
   </section>
   <section class="controls">
     <div class="navigation">
-        <span class="material-symbols-rounded"> first_page </span>
-        <span class="material-symbols-rounded"> chevron_left </span>
-        <span class="current-page">Page 3 / 21</span>
-        <span class="material-symbols-rounded"> chevron_right </span>
-        <span class="material-symbols-rounded"> last_page </span>
+      <span class="material-symbols-rounded" (click)="goToPrevPage()"> chevron_left </span>
+      <span class="current-page">Page 3 / 21</span>
+      <span class="material-symbols-rounded" (click)="goToNextPage()"> chevron_right </span>
     </div>
     <div class="settings-menu">
-        <span class="material-symbols-rounded" style="font-size: 20px;"> settings </span>
-        <span class="material-symbols-rounded" style="font-size: 22px;"> menu </span>
+      <span class="material-symbols-rounded" style="font-size: 20px">settings</span>
+      <span class="material-symbols-rounded" style="font-size: 22px">menu</span>
     </div>
   </section>
-  <section class="pages"></section>
+  <section class="pages" (click)="handlePageClick($event)">
+    <img
+      draggable="false"
+      (load)="onImageLoad()"
+      [src]="pageUrl"
+      #page
+      style="max-width: 100%; height: auto"
+    />
+  </section>
 </div>
