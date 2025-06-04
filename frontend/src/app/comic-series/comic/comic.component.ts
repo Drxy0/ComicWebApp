@@ -116,7 +116,7 @@ export class ComicComponent implements OnDestroy {
   navigateToChapter(chapterId: string) {
     const chapter = this.comicData.chapters?.find(ch => ch.id === chapterId);
     if (chapter) {
-      this.router.navigate([`/comic/${chapterId}/1`]);
+      this.router.navigate([`/chapter/${chapterId}/1`]);
     }
   }
 }

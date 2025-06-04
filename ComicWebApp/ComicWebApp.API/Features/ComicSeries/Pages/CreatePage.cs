@@ -17,7 +17,7 @@ public class CreatePage
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("comic/{chapterId:guid}/{pageNumber:int}", Handler)
+            app.MapPost("chapter/{chapterId:guid}/{pageNumber:int}", Handler)
                .WithTags(Tags.Pages);
         }
     }

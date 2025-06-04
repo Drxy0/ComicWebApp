@@ -2,8 +2,6 @@
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace ComicWebApp.API.Features.ComicSeries.Pages;
 
@@ -13,7 +11,7 @@ public class DeletePage
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapDelete("comic/{chapterId:guid}/{pageNumber:int}", Handler)
+            app.MapDelete("chapter/{chapterId:guid}/{pageNumber:int}", Handler)
                 .WithTags(Tags.Pages);
         }
     }

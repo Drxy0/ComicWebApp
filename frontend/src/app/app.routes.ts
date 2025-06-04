@@ -25,7 +25,7 @@ export const routes: Routes = [
         component: ComicComponent
     },
     {
-        path: 'comic/:chapterId/:pageNumber',
+        path: 'chapter/:chapterId/:pageNumber',
         component: ReaderComponent
     }
 ];

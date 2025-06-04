@@ -14,7 +14,7 @@ public class UpdatePage
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("comic/{chapterId:guid}/{pageNumber:int}", Handler)
+            app.MapGet("chapter/{chapterId:guid}/{pageNumber:int}", Handler)
                 .WithTags(Tags.Pages);
         }
     }
