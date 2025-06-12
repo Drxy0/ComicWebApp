@@ -15,7 +15,11 @@
   <section class="controls">
     <div class="navigation">
       <span class="material-symbols-rounded" (click)="goToPrevPage()"> chevron_left </span>
-      <span class="current-page">Page 3 / 21</span>
+      <span #currentPageSpan class="current-page">
+        {{ "READER.PAGE" | translate }} 
+        {{ route.snapshot.params['pageNumber'] }}
+        {{ pageCount() }}
+      </span>
       <span class="material-symbols-rounded" (click)="goToNextPage()"> chevron_right </span>
     </div>
     <div class="settings-menu">
