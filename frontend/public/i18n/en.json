@@ -84,5 +84,8 @@
     "ASC": "▲ Ascending",
     "DESC": "▼ Descending"
   },
-  "LOADING": "Loading..."
+  "LOADING": "Loading...",
+  "READER": {
+    "PAGE": "Page"
+  }
 }

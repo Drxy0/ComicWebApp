@@ -4,6 +4,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { ComicComponent } from './comic-series/comic/comic.component';
 import { isAuthenticatedGuard } from './core/guards/auth.guard';
+import { ReaderComponent } from './comic-series/reader/reader.component';
 
 export const routes: Routes = [
     {
@@ -22,5 +23,9 @@ export const routes: Routes = [
     {
         path: 'comic/:id',
         component: ComicComponent
+    },
+    {
+        path: 'chapter/:chapterId/:pageNumber',
+        component: ReaderComponent
     }
 ];
