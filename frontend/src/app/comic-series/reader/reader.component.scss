@@ -1,5 +1,7 @@
 .reader-container {
   display: grid;
+  max-width: fit-content;
+  margin-inline: auto;
   grid-template-areas:
     "header"
     "controls"
@@ -34,9 +36,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 30rem;
+    max-width: 50rem;
     background-color: var(--background-dark);
     .navigation {
+      padding-inline: 1rem;
       font-size: var(--font-size-rm);
       display: flex;
       align-items: center;
@@ -50,6 +53,8 @@
     }
 
     .settings-menu {
+      padding-inline: 1rem;
+      gap: 1rem;
       display: flex;
       justify-content: center;
       align-items: center;

@@ -1,29 +1,38 @@
 <div class="reader-container">
   <section class="header">
-    <h2>Title</h2>
+    <h2>{{ numberAndTitleHeading() }}</h2>
     <div class="pages-resolution">
       <div class="item">
         <span class="material-symbols-rounded icon"> file_copy </span>
-        <span>28 Pages</span>
+        <span>{{ pageCount() }} Pages</span>
       </div>
       <div class="item">
         <span class="material-symbols-rounded icon"> image </span>
-        <span>Resolution: 1280x [15.2MB]</span>
+        <span
+          >Resolution: {{ imageResolution()?.width }} x
+          {{ imageResolution()?.height }} [{{ imageSize() }} MB]</span
+        >
       </div>
     </div>
   </section>
   <section class="controls">
     <div class="navigation">
-      <span class="material-symbols-rounded" (click)="goToPrevPage()"> chevron_left </span>
+      <span class="material-symbols-rounded" (click)="goToPrevPage()">
+        chevron_left
+      </span>
       <span #currentPageSpan class="current-page">
-        {{ "READER.PAGE" | translate }} 
-        {{ route.snapshot.params['pageNumber'] }}
+        {{ "READER.PAGE" | translate }}
+        {{ route.snapshot.params["pageNumber"] }}
         {{ pageCount() }}
       </span>
-      <span class="material-symbols-rounded" (click)="goToNextPage()"> chevron_right </span>
+      <span class="material-symbols-rounded" (click)="goToNextPage()">
+        chevron_right
+      </span>
     </div>
     <div class="settings-menu">
-      <span class="material-symbols-rounded" style="font-size: 20px">settings</span>
+      <span class="material-symbols-rounded" style="font-size: 20px"
+        >settings</span
+      >
       <span class="material-symbols-rounded" style="font-size: 22px">menu</span>
     </div>
   </section>

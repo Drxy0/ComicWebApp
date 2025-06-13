@@ -2,7 +2,6 @@ import { Component, effect, ElementRef, HostListener, signal, viewChild, ViewChi
 import { ComicService } from '../../services/comic.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Location } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -19,6 +18,10 @@ export class ReaderComponent {
   pageUrl: SafeUrl | null = null;
   pageCount = signal(0); // for navigation
   currentPage = signal(0);
+  imageResolution = signal<{width: number, height: number} | null>(null);
+  imageSize = signal<string>("");
+  numberAndTitleHeading = signal<string>("");
+
 
   constructor(
     private comicService: ComicService,
@@ -27,11 +30,15 @@ export class ReaderComponent {
     private sanitiser: DomSanitizer
   ) {
     const { chapterId, pageNumber } = this.route.snapshot.params
-    
+
     this.route.params.subscribe(params => {
       this.currentPage.set(+params['pageNumber']);
-    });;
+    });
     
+    this.comicService.getChapterNumberAndTitle(chapterId).subscribe((response) => {
+      this.numberAndTitleHeading.set(`${response.number} - ${response.title}`)
+    });
+
     this.comicService.getPage(chapterId, pageNumber).subscribe((blob: Blob) => {
       this.displayPage(blob);
     });
@@ -51,7 +58,14 @@ export class ReaderComponent {
 
   onImageLoad() {
     if (!this.page?.nativeElement) return;
-    this.imgWidth = this.page.nativeElement.getBoundingClientRect().width;
+
+    const img = this.page.nativeElement;
+    this.imgWidth = img.getBoundingClientRect().width;
+    
+    this.imageResolution.set({
+      width: img.naturalWidth,
+      height: img.naturalHeight
+    });
   }
 
   handlePageClick(event: MouseEvent | TouchEvent) {
@@ -123,8 +137,10 @@ export class ReaderComponent {
   }
 
   displayPage(blob: Blob) {
+    this.imageSize.set((blob.size / (1024 * 1024)).toFixed(2)); 
     const objectUrl = URL.createObjectURL(blob);
     // Sanitize the URL for security - needed in prod
     this.pageUrl = this.sanitiser.bypassSecurityTrustUrl(objectUrl);
+    this.imageResolution.set(null);
   }
 }
