@@ -1,0 +1,67 @@
+.reader-container {
+  display: grid;
+  max-width: fit-content;
+  margin-inline: auto;
+  grid-template-areas:
+    "header"
+    "controls"
+    "pages";
+
+  gap: 1rem;
+  .header {
+    grid-area: header;
+
+    h2 {
+      font-size: var(--font-size-lg);
+      margin-block: 0;
+    }
+
+    .pages-resolution {
+      display: flex;
+      gap: 1rem;
+      font-size: var(--font-size-sm);
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 0.2rem;
+      }
+      .icon {
+        font-size: var(--font-size-lg);
+      }
+    }
+  }
+
+  .controls {
+    grid-area: controls;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 50rem;
+    background-color: var(--background-dark);
+    .navigation {
+      padding-inline: 1rem;
+      font-size: var(--font-size-rm);
+      display: flex;
+      align-items: center;
+      .current-page {
+        font-size: var(--font-size-sm);
+        padding-inline: 1rem;
+      }
+      .material-symbols-rounded {
+        cursor: pointer;
+      }
+    }
+
+    .settings-menu {
+      padding-inline: 1rem;
+      gap: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .pages {
+    grid-area: pages;
+  }
+}
