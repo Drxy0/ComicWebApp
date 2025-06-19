@@ -1,8 +1,11 @@
-import { Component, effect, ElementRef, HostListener, signal, viewChild, ViewChild } from '@angular/core';
+import { Component, effect, ElementRef, HostListener, inject, OnInit, signal, viewChild, ViewChild, DestroyRef } from '@angular/core';
 import { ComicService } from '../../services/comic.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TranslatePipe } from '@ngx-translate/core';
+import { ImageDimensions } from '../../models/interfaces/image-dimensions.interface';
+import { switchMap, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-reader',
@@ -13,45 +16,63 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class ReaderComponent {
   @ViewChild('page') page!: ElementRef<HTMLImageElement>;
   currentPageSpan = viewChild<ElementRef>('currentPageSpan');
+  
+  private destroyRef = inject(DestroyRef);
 
   private imgWidth: number = 0;
   pageUrl: SafeUrl | null = null;
   pageCount = signal(0); // for navigation
   currentPage = signal(0);
-  imageResolution = signal<{width: number, height: number} | null>(null);
+  imageResolution = signal<ImageDimensions | null>(null);
   imageSize = signal<string>("");
   numberAndTitleHeading = signal<string>("");
 
-
+  
   constructor(
     private comicService: ComicService,
     public route: ActivatedRoute,
     private router: Router,
     private sanitiser: DomSanitizer
-  ) {
-    const { chapterId, pageNumber } = this.route.snapshot.params
+  ) { }
 
-    this.route.params.subscribe(params => {
-      this.currentPage.set(+params['pageNumber']);
-    });
-    
-    this.comicService.getChapterNumberAndTitle(chapterId).subscribe((response) => {
-      this.numberAndTitleHeading.set(`${response.number} - ${response.title}`)
-    });
+    ngOnInit() {
+    const param$ = this.route.params.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    );
 
-    this.comicService.getPage(chapterId, pageNumber).subscribe((blob: Blob) => {
-      this.displayPage(blob);
-    });
+    // Handle current page and page content
+    param$
+      .pipe(
+        tap(params => this.currentPage.set(+params['pageNumber'])),
+        switchMap(params => 
+          this.comicService.getPage(params['chapterId'], +params['pageNumber'])
+        )
+      )
+      .subscribe(blob => this.displayPage(blob));
 
-    this.comicService.getPageCount(chapterId).subscribe((response) => {
-      this.pageCount.set((response as {pageCount: number}).pageCount);
-    });
+    // Chapter title
+    param$
+      .pipe(
+        switchMap(params => this.comicService.getChapterNumberAndTitle(params['chapterId']))
+      )
+      .subscribe(res => {
+        this.numberAndTitleHeading.set(`${res.number} - ${res.title}`);
+      });
 
+    // Page count
+    param$
+      .pipe(
+        switchMap(params => this.comicService.getPageCount(params['chapterId']))
+      )
+      .subscribe(res => {
+        this.pageCount.set((res as { pageCount: number }).pageCount);
+      });
+
+    // Display text like "3 / 10"
     effect(() => {
       const span = this.currentPageSpan();
       if (span) {
-        span.nativeElement.textContent = 
-          `${this.currentPage()} / ${this.pageCount()}`;
+        span.nativeElement.textContent = `${this.currentPage()} / ${this.pageCount()}`;
       }
     });
   }

@@ -21,7 +21,7 @@
         chevron_left
       </span>
       <span #currentPageSpan class="current-page">
-        {{ "READER.PAGE" | translate }}
+        {{ 'READER.PAGE' | translate }}
         {{ route.snapshot.params["pageNumber"] }}
         {{ pageCount() }}
       </span>
@@ -30,9 +30,7 @@
       </span>
     </div>
     <div class="settings-menu">
-      <span class="material-symbols-rounded" style="font-size: 20px"
-        >settings</span
-      >
+      <span class="material-symbols-rounded" style="font-size: 20px">settings</span>
       <span class="material-symbols-rounded" style="font-size: 22px">menu</span>
     </div>
   </section>

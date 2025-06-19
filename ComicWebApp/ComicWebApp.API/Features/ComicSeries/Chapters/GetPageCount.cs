@@ -9,6 +9,7 @@ namespace ComicWebApp.API.Features.ComicSeries.Chapters;
 
 public class GetPageCount
 {
+    public record Response(int PageCount);
     public class Endpnoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
@@ -30,6 +31,6 @@ public class GetPageCount
             return Results.NotFound($"Chapter with Id {id} not found");
         }
 
-        return Results.Ok(new { PageCount = chapter.Pages.Count() });
+        return Results.Ok(new Response(chapter.Pages.Count()));
     }
 }

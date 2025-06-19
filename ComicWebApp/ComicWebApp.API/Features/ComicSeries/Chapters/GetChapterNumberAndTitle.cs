@@ -1,5 +1,4 @@
 ﻿using ComicWebApp.API.Endpoints;
-using ComicWebApp.API.Features.ComicSeries.Chapters.Dtos;
 using ComicWebApp.API.Features.ComicSeries.ComicSeriesModels;
 using ComicWebApp.API.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +8,8 @@ namespace ComicWebApp.API.Features.ComicSeries.Chapters;
 
 public class GetChapterNumberAndTitle
 {
+    public record Response(float Number, string? Title);
+
     public class Endpnoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
@@ -30,12 +31,6 @@ public class GetChapterNumberAndTitle
             return Results.NotFound($"Chapter with Id {id} not found");
         }
 
-        return Results.Ok(
-            new
-            {
-                Number = chapter.Number,
-                Title = chapter.Title
-            }
-        );
+        return Results.Ok(new Response(chapter.Number, chapter.Title));
     }
 }
